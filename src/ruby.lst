@@ -1,0 +1,4052 @@
+
+
+
+
+
+typedef signed char __int8_t;
+
+
+
+typedef unsigned char __uint8_t;
+typedef short __int16_t;
+typedef unsigned short __uint16_t;
+typedef int __int32_t;
+typedef unsigned int __uint32_t;
+typedef long long __int64_t;
+typedef unsigned long long __uint64_t;
+
+typedef long __darwin_intptr_t;
+typedef unsigned int __darwin_natural_t;
+typedef int __darwin_ct_rune_t;
+
+
+
+
+
+typedef union {
+ char __mbstate8[128];
+ long long _mbstateL;
+} __mbstate_t;
+
+typedef __mbstate_t __darwin_mbstate_t;
+
+
+typedef long int __darwin_ptrdiff_t;
+
+
+
+
+
+
+
+typedef long unsigned int __darwin_size_t;
+
+
+
+
+
+typedef __builtin_va_list __darwin_va_list;
+
+
+
+
+
+typedef int __darwin_wchar_t;
+
+
+
+
+typedef __darwin_wchar_t __darwin_rune_t;
+
+
+typedef int __darwin_wint_t;
+
+
+
+
+typedef unsigned long __darwin_clock_t;
+typedef __uint32_t __darwin_socklen_t;
+typedef long __darwin_ssize_t;
+typedef long __darwin_time_t;
+typedef __int64_t __darwin_blkcnt_t;
+typedef __int32_t __darwin_blksize_t;
+typedef __int32_t __darwin_dev_t;
+typedef unsigned int __darwin_fsblkcnt_t;
+typedef unsigned int __darwin_fsfilcnt_t;
+typedef __uint32_t __darwin_gid_t;
+typedef __uint32_t __darwin_id_t;
+typedef __uint64_t __darwin_ino64_t;
+
+typedef __darwin_ino64_t __darwin_ino_t;
+
+
+
+typedef __darwin_natural_t __darwin_mach_port_name_t;
+typedef __darwin_mach_port_name_t __darwin_mach_port_t;
+typedef __uint16_t __darwin_mode_t;
+typedef __int64_t __darwin_off_t;
+typedef __int32_t __darwin_pid_t;
+typedef __uint32_t __darwin_sigset_t;
+typedef __int32_t __darwin_suseconds_t;
+typedef __uint32_t __darwin_uid_t;
+typedef __uint32_t __darwin_useconds_t;
+typedef unsigned char __darwin_uuid_t[16];
+typedef char __darwin_uuid_string_t[37];
+
+
+struct __darwin_pthread_handler_rec {
+ void (*__routine)(void *);
+ void *__arg;
+ struct __darwin_pthread_handler_rec *__next;
+};
+
+struct _opaque_pthread_attr_t {
+ long __sig;
+ char __opaque[56];
+};
+
+struct _opaque_pthread_cond_t {
+ long __sig;
+ char __opaque[40];
+};
+
+struct _opaque_pthread_condattr_t {
+ long __sig;
+ char __opaque[8];
+};
+
+struct _opaque_pthread_mutex_t {
+ long __sig;
+ char __opaque[56];
+};
+
+struct _opaque_pthread_mutexattr_t {
+ long __sig;
+ char __opaque[8];
+};
+
+struct _opaque_pthread_once_t {
+ long __sig;
+ char __opaque[8];
+};
+
+struct _opaque_pthread_rwlock_t {
+ long __sig;
+ char __opaque[192];
+};
+
+struct _opaque_pthread_rwlockattr_t {
+ long __sig;
+ char __opaque[16];
+};
+
+struct _opaque_pthread_t {
+ long __sig;
+ struct __darwin_pthread_handler_rec *__cleanup_stack;
+ char __opaque[8176];
+};
+
+typedef struct _opaque_pthread_attr_t __darwin_pthread_attr_t;
+typedef struct _opaque_pthread_cond_t __darwin_pthread_cond_t;
+typedef struct _opaque_pthread_condattr_t __darwin_pthread_condattr_t;
+typedef unsigned long __darwin_pthread_key_t;
+typedef struct _opaque_pthread_mutex_t __darwin_pthread_mutex_t;
+typedef struct _opaque_pthread_mutexattr_t __darwin_pthread_mutexattr_t;
+typedef struct _opaque_pthread_once_t __darwin_pthread_once_t;
+typedef struct _opaque_pthread_rwlock_t __darwin_pthread_rwlock_t;
+typedef struct _opaque_pthread_rwlockattr_t __darwin_pthread_rwlockattr_t;
+typedef struct _opaque_pthread_t *__darwin_pthread_t;
+typedef int __darwin_nl_item;
+typedef int __darwin_wctrans_t;
+
+typedef __uint32_t __darwin_wctype_t;
+
+
+
+typedef __darwin_va_list va_list;
+typedef __darwin_size_t size_t;
+
+int renameat(int, const char *, int, const char *) __attribute__((availability(macosx,introduced=10.10)));
+
+typedef __darwin_off_t fpos_t;
+struct __sbuf {
+ unsigned char *_base;
+ int _size;
+};
+
+
+struct __sFILEX;
+typedef struct __sFILE {
+ unsigned char *_p;
+ int _r;
+ int _w;
+ short _flags;
+ short _file;
+ struct __sbuf _bf;
+ int _lbfsize;
+
+
+ void *_cookie;
+ int (*_close)(void *);
+ int (*_read) (void *, char *, int);
+ fpos_t (*_seek) (void *, fpos_t, int);
+ int (*_write)(void *, const char *, int);
+
+
+ struct __sbuf _ub;
+ struct __sFILEX *_extra;
+ int _ur;
+
+
+ unsigned char _ubuf[3];
+ unsigned char _nbuf[1];
+
+
+ struct __sbuf _lb;
+
+
+ int _blksize;
+ fpos_t _offset;
+} FILE;
+
+
+extern FILE *__stdinp;
+extern FILE *__stdoutp;
+extern FILE *__stderrp;
+void clearerr(FILE *);
+int fclose(FILE *);
+int feof(FILE *);
+int ferror(FILE *);
+int fflush(FILE *);
+int fgetc(FILE *);
+int fgetpos(FILE * restrict, fpos_t *);
+char *fgets(char * restrict, int, FILE *);
+
+
+
+FILE *fopen(const char * restrict, const char * restrict) __asm("_" "fopen" );
+
+int fprintf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
+int fputc(int, FILE *);
+int fputs(const char * restrict, FILE * restrict) __asm("_" "fputs" );
+size_t fread(void * restrict, size_t, size_t, FILE * restrict);
+FILE *freopen(const char * restrict, const char * restrict,
+                 FILE * restrict) __asm("_" "freopen" );
+int fscanf(FILE * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
+int fseek(FILE *, long, int);
+int fsetpos(FILE *, const fpos_t *);
+long ftell(FILE *);
+size_t fwrite(const void * restrict, size_t, size_t, FILE * restrict) __asm("_" "fwrite" );
+int getc(FILE *);
+int getchar(void);
+char *gets(char *);
+void perror(const char *);
+int printf(const char * restrict, ...) __attribute__((__format__ (__printf__, 1, 2)));
+int putc(int, FILE *);
+int putchar(int);
+int puts(const char *);
+int remove(const char *);
+int rename (const char *, const char *);
+void rewind(FILE *);
+int scanf(const char * restrict, ...) __attribute__((__format__ (__scanf__, 1, 2)));
+void setbuf(FILE * restrict, char * restrict);
+int setvbuf(FILE * restrict, char * restrict, int, size_t);
+int sprintf(char * restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
+int sscanf(const char * restrict, const char * restrict, ...) __attribute__((__format__ (__scanf__, 2, 3)));
+FILE *tmpfile(void);
+
+
+__attribute__((deprecated("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tmpnam(3), it is highly recommended that you use mkstemp(3) instead.")))
+
+char *tmpnam(char *);
+int ungetc(int, FILE *);
+int vfprintf(FILE * restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0)));
+int vprintf(const char * restrict, va_list) __attribute__((__format__ (__printf__, 1, 0)));
+int vsprintf(char * restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0)));
+char *ctermid(char *);
+
+
+
+
+
+FILE *fdopen(int, const char *) __asm("_" "fdopen" );
+
+int fileno(FILE *);
+int pclose(FILE *);
+
+
+
+FILE *popen(const char *, const char *) __asm("_" "popen" );
+int __srget(FILE *);
+int __svfscanf(FILE *, const char *, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
+int __swbuf(int, FILE *);
+inline __attribute__ ((__always_inline__)) int __sputc(int _c, FILE *_p) {
+ if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n'))
+  return (*_p->_p++ = _c);
+ else
+  return (__swbuf(_c, _p));
+}
+void flockfile(FILE *);
+int ftrylockfile(FILE *);
+void funlockfile(FILE *);
+int getc_unlocked(FILE *);
+int getchar_unlocked(void);
+int putc_unlocked(int, FILE *);
+int putchar_unlocked(int);
+
+
+
+int getw(FILE *);
+int putw(int, FILE *);
+
+
+
+__attribute__((deprecated("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tempnam(3), it is highly recommended that you use mkstemp(3) instead.")))
+
+char *tempnam(const char *, const char *) __asm("_" "tempnam" );
+typedef __darwin_off_t off_t;
+
+
+int fseeko(FILE *, off_t, int);
+off_t ftello(FILE *);
+
+
+
+
+
+int snprintf(char * restrict, size_t, const char * restrict, ...) __attribute__((__format__ (__printf__, 3, 4)));
+int vfscanf(FILE * restrict, const char * restrict, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
+int vscanf(const char * restrict, va_list) __attribute__((__format__ (__scanf__, 1, 0)));
+int vsnprintf(char * restrict, size_t, const char * restrict, va_list) __attribute__((__format__ (__printf__, 3, 0)));
+int vsscanf(const char * restrict, const char * restrict, va_list) __attribute__((__format__ (__scanf__, 2, 0)));
+typedef __darwin_ssize_t ssize_t;
+
+
+int dprintf(int, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3))) __attribute__((availability(macosx,introduced=10.7)));
+int vdprintf(int, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0))) __attribute__((availability(macosx,introduced=10.7)));
+ssize_t getdelim(char ** restrict, size_t * restrict, int, FILE * restrict) __attribute__((availability(macosx,introduced=10.7)));
+ssize_t getline(char ** restrict, size_t * restrict, FILE * restrict) __attribute__((availability(macosx,introduced=10.7)));
+extern const int sys_nerr;
+extern const char *const sys_errlist[];
+
+int asprintf(char ** restrict, const char * restrict, ...) __attribute__((__format__ (__printf__, 2, 3)));
+char *ctermid_r(char *);
+char *fgetln(FILE *, size_t *);
+const char *fmtcheck(const char *, const char *);
+int fpurge(FILE *);
+void setbuffer(FILE *, char *, int);
+int setlinebuf(FILE *);
+int vasprintf(char ** restrict, const char * restrict, va_list) __attribute__((__format__ (__printf__, 2, 0)));
+FILE *zopen(const char *, const char *, int);
+
+
+
+
+
+FILE *funopen(const void *,
+                 int (*)(void *, char *, int),
+                 int (*)(void *, const char *, int),
+                 fpos_t (*)(void *, fpos_t, int),
+                 int (*)(void *));
+extern int __sprintf_chk (char * restrict, int, size_t,
+     const char * restrict, ...);
+extern int __snprintf_chk (char * restrict, size_t, int, size_t,
+      const char * restrict, ...);
+
+
+
+
+
+
+
+extern int __vsprintf_chk (char * restrict, int, size_t,
+      const char * restrict, va_list);
+
+
+
+
+
+
+
+extern int __vsnprintf_chk (char * restrict, size_t, int, size_t,
+       const char * restrict, va_list);
+
+
+
+
+
+
+typedef signed char int8_t;
+typedef short int16_t;
+typedef int int32_t;
+typedef long long int64_t;
+
+typedef unsigned char u_int8_t;
+typedef unsigned short u_int16_t;
+typedef unsigned int u_int32_t;
+typedef unsigned long long u_int64_t;
+
+
+typedef int64_t register_t;
+
+
+
+
+
+typedef __darwin_intptr_t intptr_t;
+typedef unsigned long uintptr_t;
+
+
+
+typedef u_int64_t user_addr_t;
+typedef u_int64_t user_size_t;
+typedef int64_t user_ssize_t;
+typedef int64_t user_long_t;
+typedef u_int64_t user_ulong_t;
+typedef int64_t user_time_t;
+typedef int64_t user_off_t;
+
+
+
+
+
+
+
+typedef u_int64_t syscall_arg_t;
+
+
+static inline
+__uint16_t
+_OSSwapInt16(
+    __uint16_t _data
+)
+{
+    return ((__uint16_t)((_data << 8) | (_data >> 8)));
+}
+
+static inline
+__uint32_t
+_OSSwapInt32(
+    __uint32_t _data
+)
+{
+
+    return __builtin_bswap32(_data);
+
+
+
+
+}
+
+
+static inline
+__uint64_t
+_OSSwapInt64(
+    __uint64_t _data
+)
+{
+    return __builtin_bswap64(_data);
+}
+
+
+typedef unsigned char u_char;
+typedef unsigned short u_short;
+typedef unsigned int u_int;
+
+typedef unsigned long u_long;
+
+
+typedef unsigned short ushort;
+typedef unsigned int uint;
+
+
+typedef u_int64_t u_quad_t;
+typedef int64_t quad_t;
+typedef quad_t * qaddr_t;
+
+typedef char * caddr_t;
+typedef int32_t daddr_t;
+
+
+typedef __darwin_dev_t dev_t;
+
+typedef u_int32_t fixpt_t;
+
+
+typedef __darwin_blkcnt_t blkcnt_t;
+typedef __darwin_blksize_t blksize_t;
+typedef __darwin_gid_t gid_t;
+typedef __uint32_t in_addr_t;
+typedef __uint16_t in_port_t;
+typedef __darwin_ino_t ino_t;
+
+
+typedef __darwin_ino64_t ino64_t;
+
+
+typedef __int32_t key_t;
+typedef __darwin_mode_t mode_t;
+typedef __uint16_t nlink_t;
+typedef __darwin_id_t id_t;
+typedef __darwin_pid_t pid_t;
+
+
+typedef int32_t segsz_t;
+typedef int32_t swblk_t;
+
+
+typedef __darwin_uid_t uid_t;
+typedef __darwin_clock_t clock_t;
+
+
+typedef __darwin_time_t time_t;
+
+typedef __darwin_useconds_t useconds_t;
+typedef __darwin_suseconds_t suseconds_t;
+
+
+typedef __darwin_size_t rsize_t;
+typedef int errno_t;
+
+
+
+
+
+
+
+
+typedef struct fd_set {
+ __int32_t fds_bits[((((1024) % ((sizeof(__int32_t) * 8))) == 0) ? ((1024) / ((sizeof(__int32_t) * 8))) : (((1024) / ((sizeof(__int32_t) * 8))) + 1))];
+} fd_set;
+
+
+
+static __inline int
+__darwin_fd_isset(int _n, const struct fd_set *_p)
+{
+ return (_p->fds_bits[(unsigned long)_n/(sizeof(__int32_t) * 8)] & ((__int32_t)(1<<((unsigned long)_n % (sizeof(__int32_t) * 8)))));
+}
+
+
+
+
+typedef __int32_t fd_mask;
+
+
+
+
+
+
+
+
+
+
+typedef __darwin_pthread_attr_t pthread_attr_t;
+typedef __darwin_pthread_cond_t pthread_cond_t;
+typedef __darwin_pthread_condattr_t pthread_condattr_t;
+typedef __darwin_pthread_mutex_t pthread_mutex_t;
+typedef __darwin_pthread_mutexattr_t pthread_mutexattr_t;
+typedef __darwin_pthread_once_t pthread_once_t;
+typedef __darwin_pthread_rwlock_t pthread_rwlock_t;
+typedef __darwin_pthread_rwlockattr_t pthread_rwlockattr_t;
+typedef __darwin_pthread_t pthread_t;
+
+
+
+typedef __darwin_pthread_key_t pthread_key_t;
+
+
+
+
+typedef __darwin_fsblkcnt_t fsblkcnt_t;
+typedef __darwin_fsfilcnt_t fsfilcnt_t;
+
+
+struct timespec
+{
+ __darwin_time_t tv_sec;
+ long tv_nsec;
+};
+struct ostat {
+ __uint16_t st_dev;
+ ino_t st_ino;
+ mode_t st_mode;
+ nlink_t st_nlink;
+ __uint16_t st_uid;
+ __uint16_t st_gid;
+ __uint16_t st_rdev;
+ __int32_t st_size;
+ struct timespec st_atimespec;
+ struct timespec st_mtimespec;
+ struct timespec st_ctimespec;
+ __int32_t st_blksize;
+ __int32_t st_blocks;
+ __uint32_t st_flags;
+ __uint32_t st_gen;
+};
+struct stat { dev_t st_dev; mode_t st_mode; nlink_t st_nlink; __darwin_ino64_t st_ino; uid_t st_uid; gid_t st_gid; dev_t st_rdev; struct timespec st_atimespec; struct timespec st_mtimespec; struct timespec st_ctimespec; struct timespec st_birthtimespec; off_t st_size; blkcnt_t st_blocks; blksize_t st_blksize; __uint32_t st_flags; __uint32_t st_gen; __int32_t st_lspare; __int64_t st_qspare[2]; };
+struct stat64 { dev_t st_dev; mode_t st_mode; nlink_t st_nlink; __darwin_ino64_t st_ino; uid_t st_uid; gid_t st_gid; dev_t st_rdev; struct timespec st_atimespec; struct timespec st_mtimespec; struct timespec st_ctimespec; struct timespec st_birthtimespec; off_t st_size; blkcnt_t st_blocks; blksize_t st_blksize; __uint32_t st_flags; __uint32_t st_gen; __int32_t st_lspare; __int64_t st_qspare[2]; };
+int chmod(const char *, mode_t) __asm("_" "chmod" );
+int fchmod(int, mode_t) __asm("_" "fchmod" );
+int fstat(int, struct stat *) __asm("_" "fstat" "$INODE64");
+int lstat(const char *, struct stat *) __asm("_" "lstat" "$INODE64");
+int mkdir(const char *, mode_t);
+int mkfifo(const char *, mode_t);
+int stat(const char *, struct stat *) __asm("_" "stat" "$INODE64");
+int mknod(const char *, mode_t, dev_t);
+mode_t umask(mode_t);
+
+
+int fchmodat(int, const char *, mode_t, int) __attribute__((availability(macosx,introduced=10.10)));
+int fstatat(int, const char *, struct stat *, int) __asm("_" "fstatat" "$INODE64") __attribute__((availability(macosx,introduced=10.10)));
+int mkdirat(int, const char *, mode_t) __attribute__((availability(macosx,introduced=10.10)));
+
+
+
+
+
+struct _filesec;
+typedef struct _filesec *filesec_t;
+
+int chflags(const char *, __uint32_t);
+int chmodx_np(const char *, filesec_t);
+int fchflags(int, __uint32_t);
+int fchmodx_np(int, filesec_t);
+int fstatx_np(int, struct stat *, filesec_t) __asm("_" "fstatx_np" "$INODE64");
+int lchflags(const char *, __uint32_t) __attribute__((availability(macosx,introduced=10.5)));
+int lchmod(const char *, mode_t) __attribute__((availability(macosx,introduced=10.5)));
+int lstatx_np(const char *, struct stat *, filesec_t) __asm("_" "lstatx_np" "$INODE64");
+int mkdirx_np(const char *, filesec_t);
+int mkfifox_np(const char *, filesec_t);
+int statx_np(const char *, struct stat *, filesec_t) __asm("_" "statx_np" "$INODE64");
+int umaskx_np(filesec_t) __attribute__((availability(macosx,introduced=10.4,deprecated=10.6)));
+
+
+
+int fstatx64_np(int, struct stat64 *, filesec_t) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
+int lstatx64_np(const char *, struct stat64 *, filesec_t) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
+int statx64_np(const char *, struct stat64 *, filesec_t) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
+int fstat64(int, struct stat64 *) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
+int lstat64(const char *, struct stat64 *) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
+int stat64(const char *, struct stat64 *) __attribute__((availability(macosx,introduced=10.5,deprecated=10.6)));
+
+
+typedef enum {
+ P_ALL,
+ P_PID,
+ P_PGID
+} idtype_t;
+typedef int sig_atomic_t;
+struct __darwin_i386_thread_state
+{
+    unsigned int __eax;
+    unsigned int __ebx;
+    unsigned int __ecx;
+    unsigned int __edx;
+    unsigned int __edi;
+    unsigned int __esi;
+    unsigned int __ebp;
+    unsigned int __esp;
+    unsigned int __ss;
+    unsigned int __eflags;
+    unsigned int __eip;
+    unsigned int __cs;
+    unsigned int __ds;
+    unsigned int __es;
+    unsigned int __fs;
+    unsigned int __gs;
+};
+struct __darwin_fp_control
+{
+    unsigned short __invalid :1,
+        __denorm :1,
+    __zdiv :1,
+    __ovrfl :1,
+    __undfl :1,
+    __precis :1,
+      :2,
+    __pc :2,
+
+
+
+
+
+    __rc :2,
+
+
+
+
+
+
+             :1,
+      :3;
+};
+typedef struct __darwin_fp_control __darwin_fp_control_t;
+struct __darwin_fp_status
+{
+    unsigned short __invalid :1,
+        __denorm :1,
+    __zdiv :1,
+    __ovrfl :1,
+    __undfl :1,
+    __precis :1,
+    __stkflt :1,
+    __errsumm :1,
+    __c0 :1,
+    __c1 :1,
+    __c2 :1,
+    __tos :3,
+    __c3 :1,
+    __busy :1;
+};
+typedef struct __darwin_fp_status __darwin_fp_status_t;
+struct __darwin_mmst_reg
+{
+ char __mmst_reg[10];
+ char __mmst_rsrv[6];
+};
+struct __darwin_xmm_reg
+{
+ char __xmm_reg[16];
+};
+struct __darwin_i386_float_state
+{
+ int __fpu_reserved[2];
+ struct __darwin_fp_control __fpu_fcw;
+ struct __darwin_fp_status __fpu_fsw;
+ __uint8_t __fpu_ftw;
+ __uint8_t __fpu_rsrv1;
+ __uint16_t __fpu_fop;
+ __uint32_t __fpu_ip;
+ __uint16_t __fpu_cs;
+ __uint16_t __fpu_rsrv2;
+ __uint32_t __fpu_dp;
+ __uint16_t __fpu_ds;
+ __uint16_t __fpu_rsrv3;
+ __uint32_t __fpu_mxcsr;
+ __uint32_t __fpu_mxcsrmask;
+ struct __darwin_mmst_reg __fpu_stmm0;
+ struct __darwin_mmst_reg __fpu_stmm1;
+ struct __darwin_mmst_reg __fpu_stmm2;
+ struct __darwin_mmst_reg __fpu_stmm3;
+ struct __darwin_mmst_reg __fpu_stmm4;
+ struct __darwin_mmst_reg __fpu_stmm5;
+ struct __darwin_mmst_reg __fpu_stmm6;
+ struct __darwin_mmst_reg __fpu_stmm7;
+ struct __darwin_xmm_reg __fpu_xmm0;
+ struct __darwin_xmm_reg __fpu_xmm1;
+ struct __darwin_xmm_reg __fpu_xmm2;
+ struct __darwin_xmm_reg __fpu_xmm3;
+ struct __darwin_xmm_reg __fpu_xmm4;
+ struct __darwin_xmm_reg __fpu_xmm5;
+ struct __darwin_xmm_reg __fpu_xmm6;
+ struct __darwin_xmm_reg __fpu_xmm7;
+ char __fpu_rsrv4[14*16];
+ int __fpu_reserved1;
+};
+
+
+struct __darwin_i386_avx_state
+{
+ int __fpu_reserved[2];
+ struct __darwin_fp_control __fpu_fcw;
+ struct __darwin_fp_status __fpu_fsw;
+ __uint8_t __fpu_ftw;
+ __uint8_t __fpu_rsrv1;
+ __uint16_t __fpu_fop;
+ __uint32_t __fpu_ip;
+ __uint16_t __fpu_cs;
+ __uint16_t __fpu_rsrv2;
+ __uint32_t __fpu_dp;
+ __uint16_t __fpu_ds;
+ __uint16_t __fpu_rsrv3;
+ __uint32_t __fpu_mxcsr;
+ __uint32_t __fpu_mxcsrmask;
+ struct __darwin_mmst_reg __fpu_stmm0;
+ struct __darwin_mmst_reg __fpu_stmm1;
+ struct __darwin_mmst_reg __fpu_stmm2;
+ struct __darwin_mmst_reg __fpu_stmm3;
+ struct __darwin_mmst_reg __fpu_stmm4;
+ struct __darwin_mmst_reg __fpu_stmm5;
+ struct __darwin_mmst_reg __fpu_stmm6;
+ struct __darwin_mmst_reg __fpu_stmm7;
+ struct __darwin_xmm_reg __fpu_xmm0;
+ struct __darwin_xmm_reg __fpu_xmm1;
+ struct __darwin_xmm_reg __fpu_xmm2;
+ struct __darwin_xmm_reg __fpu_xmm3;
+ struct __darwin_xmm_reg __fpu_xmm4;
+ struct __darwin_xmm_reg __fpu_xmm5;
+ struct __darwin_xmm_reg __fpu_xmm6;
+ struct __darwin_xmm_reg __fpu_xmm7;
+ char __fpu_rsrv4[14*16];
+ int __fpu_reserved1;
+ char __avx_reserved1[64];
+ struct __darwin_xmm_reg __fpu_ymmh0;
+ struct __darwin_xmm_reg __fpu_ymmh1;
+ struct __darwin_xmm_reg __fpu_ymmh2;
+ struct __darwin_xmm_reg __fpu_ymmh3;
+ struct __darwin_xmm_reg __fpu_ymmh4;
+ struct __darwin_xmm_reg __fpu_ymmh5;
+ struct __darwin_xmm_reg __fpu_ymmh6;
+ struct __darwin_xmm_reg __fpu_ymmh7;
+};
+struct __darwin_i386_exception_state
+{
+ __uint16_t __trapno;
+ __uint16_t __cpu;
+ __uint32_t __err;
+ __uint32_t __faultvaddr;
+};
+struct __darwin_x86_debug_state32
+{
+ unsigned int __dr0;
+ unsigned int __dr1;
+ unsigned int __dr2;
+ unsigned int __dr3;
+ unsigned int __dr4;
+ unsigned int __dr5;
+ unsigned int __dr6;
+ unsigned int __dr7;
+};
+struct __darwin_x86_thread_state64
+{
+ __uint64_t __rax;
+ __uint64_t __rbx;
+ __uint64_t __rcx;
+ __uint64_t __rdx;
+ __uint64_t __rdi;
+ __uint64_t __rsi;
+ __uint64_t __rbp;
+ __uint64_t __rsp;
+ __uint64_t __r8;
+ __uint64_t __r9;
+ __uint64_t __r10;
+ __uint64_t __r11;
+ __uint64_t __r12;
+ __uint64_t __r13;
+ __uint64_t __r14;
+ __uint64_t __r15;
+ __uint64_t __rip;
+ __uint64_t __rflags;
+ __uint64_t __cs;
+ __uint64_t __fs;
+ __uint64_t __gs;
+};
+struct __darwin_x86_float_state64
+{
+ int __fpu_reserved[2];
+ struct __darwin_fp_control __fpu_fcw;
+ struct __darwin_fp_status __fpu_fsw;
+ __uint8_t __fpu_ftw;
+ __uint8_t __fpu_rsrv1;
+ __uint16_t __fpu_fop;
+
+
+ __uint32_t __fpu_ip;
+ __uint16_t __fpu_cs;
+
+ __uint16_t __fpu_rsrv2;
+
+
+ __uint32_t __fpu_dp;
+ __uint16_t __fpu_ds;
+
+ __uint16_t __fpu_rsrv3;
+ __uint32_t __fpu_mxcsr;
+ __uint32_t __fpu_mxcsrmask;
+ struct __darwin_mmst_reg __fpu_stmm0;
+ struct __darwin_mmst_reg __fpu_stmm1;
+ struct __darwin_mmst_reg __fpu_stmm2;
+ struct __darwin_mmst_reg __fpu_stmm3;
+ struct __darwin_mmst_reg __fpu_stmm4;
+ struct __darwin_mmst_reg __fpu_stmm5;
+ struct __darwin_mmst_reg __fpu_stmm6;
+ struct __darwin_mmst_reg __fpu_stmm7;
+ struct __darwin_xmm_reg __fpu_xmm0;
+ struct __darwin_xmm_reg __fpu_xmm1;
+ struct __darwin_xmm_reg __fpu_xmm2;
+ struct __darwin_xmm_reg __fpu_xmm3;
+ struct __darwin_xmm_reg __fpu_xmm4;
+ struct __darwin_xmm_reg __fpu_xmm5;
+ struct __darwin_xmm_reg __fpu_xmm6;
+ struct __darwin_xmm_reg __fpu_xmm7;
+ struct __darwin_xmm_reg __fpu_xmm8;
+ struct __darwin_xmm_reg __fpu_xmm9;
+ struct __darwin_xmm_reg __fpu_xmm10;
+ struct __darwin_xmm_reg __fpu_xmm11;
+ struct __darwin_xmm_reg __fpu_xmm12;
+ struct __darwin_xmm_reg __fpu_xmm13;
+ struct __darwin_xmm_reg __fpu_xmm14;
+ struct __darwin_xmm_reg __fpu_xmm15;
+ char __fpu_rsrv4[6*16];
+ int __fpu_reserved1;
+};
+
+
+struct __darwin_x86_avx_state64
+{
+ int __fpu_reserved[2];
+ struct __darwin_fp_control __fpu_fcw;
+ struct __darwin_fp_status __fpu_fsw;
+ __uint8_t __fpu_ftw;
+ __uint8_t __fpu_rsrv1;
+ __uint16_t __fpu_fop;
+
+
+ __uint32_t __fpu_ip;
+ __uint16_t __fpu_cs;
+
+ __uint16_t __fpu_rsrv2;
+
+
+ __uint32_t __fpu_dp;
+ __uint16_t __fpu_ds;
+
+ __uint16_t __fpu_rsrv3;
+ __uint32_t __fpu_mxcsr;
+ __uint32_t __fpu_mxcsrmask;
+ struct __darwin_mmst_reg __fpu_stmm0;
+ struct __darwin_mmst_reg __fpu_stmm1;
+ struct __darwin_mmst_reg __fpu_stmm2;
+ struct __darwin_mmst_reg __fpu_stmm3;
+ struct __darwin_mmst_reg __fpu_stmm4;
+ struct __darwin_mmst_reg __fpu_stmm5;
+ struct __darwin_mmst_reg __fpu_stmm6;
+ struct __darwin_mmst_reg __fpu_stmm7;
+ struct __darwin_xmm_reg __fpu_xmm0;
+ struct __darwin_xmm_reg __fpu_xmm1;
+ struct __darwin_xmm_reg __fpu_xmm2;
+ struct __darwin_xmm_reg __fpu_xmm3;
+ struct __darwin_xmm_reg __fpu_xmm4;
+ struct __darwin_xmm_reg __fpu_xmm5;
+ struct __darwin_xmm_reg __fpu_xmm6;
+ struct __darwin_xmm_reg __fpu_xmm7;
+ struct __darwin_xmm_reg __fpu_xmm8;
+ struct __darwin_xmm_reg __fpu_xmm9;
+ struct __darwin_xmm_reg __fpu_xmm10;
+ struct __darwin_xmm_reg __fpu_xmm11;
+ struct __darwin_xmm_reg __fpu_xmm12;
+ struct __darwin_xmm_reg __fpu_xmm13;
+ struct __darwin_xmm_reg __fpu_xmm14;
+ struct __darwin_xmm_reg __fpu_xmm15;
+ char __fpu_rsrv4[6*16];
+ int __fpu_reserved1;
+ char __avx_reserved1[64];
+ struct __darwin_xmm_reg __fpu_ymmh0;
+ struct __darwin_xmm_reg __fpu_ymmh1;
+ struct __darwin_xmm_reg __fpu_ymmh2;
+ struct __darwin_xmm_reg __fpu_ymmh3;
+ struct __darwin_xmm_reg __fpu_ymmh4;
+ struct __darwin_xmm_reg __fpu_ymmh5;
+ struct __darwin_xmm_reg __fpu_ymmh6;
+ struct __darwin_xmm_reg __fpu_ymmh7;
+ struct __darwin_xmm_reg __fpu_ymmh8;
+ struct __darwin_xmm_reg __fpu_ymmh9;
+ struct __darwin_xmm_reg __fpu_ymmh10;
+ struct __darwin_xmm_reg __fpu_ymmh11;
+ struct __darwin_xmm_reg __fpu_ymmh12;
+ struct __darwin_xmm_reg __fpu_ymmh13;
+ struct __darwin_xmm_reg __fpu_ymmh14;
+ struct __darwin_xmm_reg __fpu_ymmh15;
+};
+struct __darwin_x86_exception_state64
+{
+    __uint16_t __trapno;
+    __uint16_t __cpu;
+    __uint32_t __err;
+    __uint64_t __faultvaddr;
+};
+struct __darwin_x86_debug_state64
+{
+ __uint64_t __dr0;
+ __uint64_t __dr1;
+ __uint64_t __dr2;
+ __uint64_t __dr3;
+ __uint64_t __dr4;
+ __uint64_t __dr5;
+ __uint64_t __dr6;
+ __uint64_t __dr7;
+};
+
+
+
+
+struct __darwin_mcontext32
+{
+ struct __darwin_i386_exception_state __es;
+ struct __darwin_i386_thread_state __ss;
+ struct __darwin_i386_float_state __fs;
+};
+
+
+struct __darwin_mcontext_avx32
+{
+ struct __darwin_i386_exception_state __es;
+ struct __darwin_i386_thread_state __ss;
+ struct __darwin_i386_avx_state __fs;
+};
+struct __darwin_mcontext64
+{
+ struct __darwin_x86_exception_state64 __es;
+ struct __darwin_x86_thread_state64 __ss;
+ struct __darwin_x86_float_state64 __fs;
+};
+
+
+struct __darwin_mcontext_avx64
+{
+ struct __darwin_x86_exception_state64 __es;
+ struct __darwin_x86_thread_state64 __ss;
+ struct __darwin_x86_avx_state64 __fs;
+};
+typedef struct __darwin_mcontext64 *mcontext_t;
+
+
+
+struct __darwin_sigaltstack
+{
+ void *ss_sp;
+ __darwin_size_t ss_size;
+ int ss_flags;
+};
+typedef struct __darwin_sigaltstack stack_t;
+struct __darwin_ucontext
+{
+ int uc_onstack;
+ __darwin_sigset_t uc_sigmask;
+ struct __darwin_sigaltstack uc_stack;
+ struct __darwin_ucontext *uc_link;
+ __darwin_size_t uc_mcsize;
+ struct __darwin_mcontext64 *uc_mcontext;
+
+
+
+};
+
+
+typedef struct __darwin_ucontext ucontext_t;
+
+
+typedef __darwin_sigset_t sigset_t;
+
+
+
+union sigval {
+
+ int sival_int;
+ void *sival_ptr;
+};
+
+
+
+
+
+struct sigevent {
+ int sigev_notify;
+ int sigev_signo;
+ union sigval sigev_value;
+ void (*sigev_notify_function)(union sigval);
+ pthread_attr_t *sigev_notify_attributes;
+};
+
+
+typedef struct __siginfo {
+ int si_signo;
+ int si_errno;
+ int si_code;
+ pid_t si_pid;
+ uid_t si_uid;
+ int si_status;
+ void *si_addr;
+ union sigval si_value;
+ long si_band;
+ unsigned long __pad[7];
+} siginfo_t;
+union __sigaction_u {
+ void (*__sa_handler)(int);
+ void (*__sa_sigaction)(int, struct __siginfo *,
+         void *);
+};
+
+
+struct __sigaction {
+ union __sigaction_u __sigaction_u;
+ void (*sa_tramp)(void *, int, int, siginfo_t *, void *);
+ sigset_t sa_mask;
+ int sa_flags;
+};
+
+
+
+
+struct sigaction {
+ union __sigaction_u __sigaction_u;
+ sigset_t sa_mask;
+ int sa_flags;
+};
+typedef void (*sig_t)(int);
+struct sigvec {
+ void (*sv_handler)(int);
+ int sv_mask;
+ int sv_flags;
+};
+struct sigstack {
+ char *ss_sp;
+ int ss_onstack;
+};
+void (*signal(int, void (*)(int)))(int);
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
+
+
+typedef int8_t int_least8_t;
+typedef int16_t int_least16_t;
+typedef int32_t int_least32_t;
+typedef int64_t int_least64_t;
+typedef uint8_t uint_least8_t;
+typedef uint16_t uint_least16_t;
+typedef uint32_t uint_least32_t;
+typedef uint64_t uint_least64_t;
+
+
+
+typedef int8_t int_fast8_t;
+typedef int16_t int_fast16_t;
+typedef int32_t int_fast32_t;
+typedef int64_t int_fast64_t;
+typedef uint8_t uint_fast8_t;
+typedef uint16_t uint_fast16_t;
+typedef uint32_t uint_fast32_t;
+typedef uint64_t uint_fast64_t;
+typedef long int intmax_t;
+typedef long unsigned int uintmax_t;
+
+
+
+
+
+
+
+struct timeval
+{
+ __darwin_time_t tv_sec;
+ __darwin_suseconds_t tv_usec;
+};
+
+
+
+
+
+
+
+
+typedef __uint64_t rlim_t;
+struct rusage {
+ struct timeval ru_utime;
+ struct timeval ru_stime;
+ long ru_maxrss;
+
+ long ru_ixrss;
+ long ru_idrss;
+ long ru_isrss;
+ long ru_minflt;
+ long ru_majflt;
+ long ru_nswap;
+ long ru_inblock;
+ long ru_oublock;
+ long ru_msgsnd;
+ long ru_msgrcv;
+ long ru_nsignals;
+ long ru_nvcsw;
+ long ru_nivcsw;
+
+
+};
+typedef void *rusage_info_t;
+
+struct rusage_info_v0 {
+ uint8_t ri_uuid[16];
+ uint64_t ri_user_time;
+ uint64_t ri_system_time;
+ uint64_t ri_pkg_idle_wkups;
+ uint64_t ri_interrupt_wkups;
+ uint64_t ri_pageins;
+ uint64_t ri_wired_size;
+ uint64_t ri_resident_size;
+ uint64_t ri_phys_footprint;
+ uint64_t ri_proc_start_abstime;
+ uint64_t ri_proc_exit_abstime;
+};
+
+struct rusage_info_v1 {
+ uint8_t ri_uuid[16];
+ uint64_t ri_user_time;
+ uint64_t ri_system_time;
+ uint64_t ri_pkg_idle_wkups;
+ uint64_t ri_interrupt_wkups;
+ uint64_t ri_pageins;
+ uint64_t ri_wired_size;
+ uint64_t ri_resident_size;
+ uint64_t ri_phys_footprint;
+ uint64_t ri_proc_start_abstime;
+ uint64_t ri_proc_exit_abstime;
+ uint64_t ri_child_user_time;
+ uint64_t ri_child_system_time;
+ uint64_t ri_child_pkg_idle_wkups;
+ uint64_t ri_child_interrupt_wkups;
+ uint64_t ri_child_pageins;
+ uint64_t ri_child_elapsed_abstime;
+};
+
+struct rusage_info_v2 {
+ uint8_t ri_uuid[16];
+ uint64_t ri_user_time;
+ uint64_t ri_system_time;
+ uint64_t ri_pkg_idle_wkups;
+ uint64_t ri_interrupt_wkups;
+ uint64_t ri_pageins;
+ uint64_t ri_wired_size;
+ uint64_t ri_resident_size;
+ uint64_t ri_phys_footprint;
+ uint64_t ri_proc_start_abstime;
+ uint64_t ri_proc_exit_abstime;
+ uint64_t ri_child_user_time;
+ uint64_t ri_child_system_time;
+ uint64_t ri_child_pkg_idle_wkups;
+ uint64_t ri_child_interrupt_wkups;
+ uint64_t ri_child_pageins;
+ uint64_t ri_child_elapsed_abstime;
+ uint64_t ri_diskio_bytesread;
+ uint64_t ri_diskio_byteswritten;
+};
+
+struct rusage_info_v3 {
+ uint8_t ri_uuid[16];
+ uint64_t ri_user_time;
+ uint64_t ri_system_time;
+ uint64_t ri_pkg_idle_wkups;
+ uint64_t ri_interrupt_wkups;
+ uint64_t ri_pageins;
+ uint64_t ri_wired_size;
+ uint64_t ri_resident_size;
+ uint64_t ri_phys_footprint;
+ uint64_t ri_proc_start_abstime;
+ uint64_t ri_proc_exit_abstime;
+ uint64_t ri_child_user_time;
+ uint64_t ri_child_system_time;
+ uint64_t ri_child_pkg_idle_wkups;
+ uint64_t ri_child_interrupt_wkups;
+ uint64_t ri_child_pageins;
+ uint64_t ri_child_elapsed_abstime;
+ uint64_t ri_diskio_bytesread;
+ uint64_t ri_diskio_byteswritten;
+ uint64_t ri_cpu_time_qos_default;
+ uint64_t ri_cpu_time_qos_maintenance;
+ uint64_t ri_cpu_time_qos_background;
+ uint64_t ri_cpu_time_qos_utility;
+ uint64_t ri_cpu_time_qos_legacy;
+ uint64_t ri_cpu_time_qos_user_initiated;
+ uint64_t ri_cpu_time_qos_user_interactive;
+ uint64_t ri_billed_system_time;
+ uint64_t ri_serviced_system_time;
+};
+
+typedef struct rusage_info_v3 rusage_info_current;
+struct rlimit {
+ rlim_t rlim_cur;
+ rlim_t rlim_max;
+};
+struct proc_rlimit_control_wakeupmon {
+ uint32_t wm_flags;
+ int32_t wm_rate;
+};
+int getpriority(int, id_t);
+
+int getiopolicy_np(int, int) __attribute__((availability(macosx,introduced=10.5)));
+
+int getrlimit(int, struct rlimit *) __asm("_" "getrlimit" );
+int getrusage(int, struct rusage *);
+int setpriority(int, id_t, int);
+
+int setiopolicy_np(int, int, int) __attribute__((availability(macosx,introduced=10.5)));
+
+int setrlimit(int, const struct rlimit *) __asm("_" "setrlimit" );
+union wait {
+ int w_status;
+
+
+
+ struct {
+
+  unsigned int w_Termsig:7,
+    w_Coredump:1,
+    w_Retcode:8,
+    w_Filler:16;
+
+
+
+
+
+
+
+ } w_T;
+
+
+
+
+
+ struct {
+
+  unsigned int w_Stopval:8,
+    w_Stopsig:8,
+    w_Filler:16;
+
+
+
+
+
+
+ } w_S;
+};
+pid_t wait(int *) __asm("_" "wait" );
+pid_t waitpid(pid_t, int *, int) __asm("_" "waitpid" );
+
+int waitid(idtype_t, id_t, siginfo_t *, int) __asm("_" "waitid" );
+
+
+pid_t wait3(int *, int, struct rusage *);
+pid_t wait4(pid_t, int *, int, struct rusage *);
+
+void *alloca(size_t);
+
+
+
+
+
+
+
+
+typedef __darwin_ct_rune_t ct_rune_t;
+typedef __darwin_rune_t rune_t;
+
+
+typedef __darwin_wchar_t wchar_t;
+
+typedef struct {
+ int quot;
+ int rem;
+} div_t;
+
+typedef struct {
+ long quot;
+ long rem;
+} ldiv_t;
+
+
+typedef struct {
+ long long quot;
+ long long rem;
+} lldiv_t;
+extern int __mb_cur_max;
+void abort(void) __attribute__((noreturn));
+int abs(int) __attribute__((const));
+int atexit(void (*)(void));
+double atof(const char *);
+int atoi(const char *);
+long atol(const char *);
+
+long long
+  atoll(const char *);
+
+void *bsearch(const void *, const void *, size_t,
+     size_t, int (*)(const void *, const void *));
+void *calloc(size_t, size_t);
+div_t div(int, int) __attribute__((const));
+void exit(int) __attribute__((noreturn));
+void free(void *);
+char *getenv(const char *);
+long labs(long) __attribute__((const));
+ldiv_t ldiv(long, long) __attribute__((const));
+
+long long
+  llabs(long long);
+lldiv_t lldiv(long long, long long);
+
+void *malloc(size_t);
+int mblen(const char *, size_t);
+size_t mbstowcs(wchar_t * restrict , const char * restrict, size_t);
+int mbtowc(wchar_t * restrict, const char * restrict, size_t);
+int posix_memalign(void **, size_t, size_t) __attribute__((availability(macosx,introduced=10.6)));
+void qsort(void *, size_t, size_t,
+     int (*)(const void *, const void *));
+int rand(void);
+void *realloc(void *, size_t);
+void srand(unsigned);
+double strtod(const char *, char **) __asm("_" "strtod" );
+float strtof(const char *, char **) __asm("_" "strtof" );
+long strtol(const char *, char **, int);
+long double
+  strtold(const char *, char **);
+
+long long
+  strtoll(const char *, char **, int);
+
+unsigned long
+  strtoul(const char *, char **, int);
+
+unsigned long long
+  strtoull(const char *, char **, int);
+
+int system(const char *) __asm("_" "system" ) __attribute__((availability(macosx,introduced=10.0))) __attribute__((availability(watchos,unavailable)));
+size_t wcstombs(char * restrict, const wchar_t * restrict, size_t);
+int wctomb(char *, wchar_t);
+
+
+void _Exit(int) __attribute__((noreturn));
+long a64l(const char *);
+double drand48(void);
+char *ecvt(double, int, int *restrict, int *restrict);
+double erand48(unsigned short[3]);
+char *fcvt(double, int, int *restrict, int *restrict);
+char *gcvt(double, int, char *);
+int getsubopt(char **, char * const *, char **);
+int grantpt(int);
+
+char *initstate(unsigned, char *, size_t);
+
+
+
+long jrand48(unsigned short[3]);
+char *l64a(long);
+void lcong48(unsigned short[7]);
+long lrand48(void);
+char *mktemp(char *);
+int mkstemp(char *);
+long mrand48(void);
+long nrand48(unsigned short[3]);
+int posix_openpt(int);
+char *ptsname(int);
+int putenv(char *) __asm("_" "putenv" );
+long random(void);
+int rand_r(unsigned *);
+
+char *realpath(const char * restrict, char * restrict) __asm("_" "realpath" "$DARWIN_EXTSN");
+
+
+
+unsigned short
+ *seed48(unsigned short[3]);
+int setenv(const char *, const char *, int) __asm("_" "setenv" );
+
+void setkey(const char *) __asm("_" "setkey" );
+
+
+
+char *setstate(const char *);
+void srand48(long);
+
+void srandom(unsigned);
+
+
+
+int unlockpt(int);
+
+int unsetenv(const char *) __asm("_" "unsetenv" );
+u_int32_t arc4random(void);
+void arc4random_addrandom(unsigned char * , int );
+void arc4random_buf(void * , size_t ) __attribute__((availability(macosx,introduced=10.7)));
+void arc4random_stir(void);
+u_int32_t
+  arc4random_uniform(u_int32_t ) __attribute__((availability(macosx,introduced=10.7)));
+
+int atexit_b(void (^)(void)) __attribute__((availability(macosx,introduced=10.6)));
+void *bsearch_b(const void *, const void *, size_t,
+     size_t, int (^)(const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+
+
+char *cgetcap(char *, const char *, int);
+int cgetclose(void);
+int cgetent(char **, char **, const char *);
+int cgetfirst(char **, char **);
+int cgetmatch(const char *, const char *);
+int cgetnext(char **, char **);
+int cgetnum(char *, const char *, long *);
+int cgetset(const char *);
+int cgetstr(char *, const char *, char **);
+int cgetustr(char *, const char *, char **);
+
+int daemon(int, int) __asm("_" "daemon" "$1050") __attribute__((availability(macosx,introduced=10.0,deprecated=10.5,message="Use posix_spawn APIs instead."))) __attribute__((availability(watchos,unavailable)));
+char *devname(dev_t, mode_t);
+char *devname_r(dev_t, mode_t, char *buf, int len);
+char *getbsize(int *, long *);
+int getloadavg(double [], int);
+const char
+ *getprogname(void);
+
+int heapsort(void *, size_t, size_t,
+     int (*)(const void *, const void *));
+
+int heapsort_b(void *, size_t, size_t,
+     int (^)(const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+int mergesort(void *, size_t, size_t,
+     int (*)(const void *, const void *));
+
+int mergesort_b(void *, size_t, size_t,
+     int (^)(const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+void psort(void *, size_t, size_t,
+     int (*)(const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+void psort_b(void *, size_t, size_t,
+     int (^)(const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+void psort_r(void *, size_t, size_t, void *,
+     int (*)(void *, const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+void qsort_b(void *, size_t, size_t,
+     int (^)(const void *, const void *)) __attribute__((availability(macosx,introduced=10.6)));
+
+void qsort_r(void *, size_t, size_t, void *,
+     int (*)(void *, const void *, const void *));
+int radixsort(const unsigned char **, int, const unsigned char *,
+     unsigned);
+void setprogname(const char *);
+int sradixsort(const unsigned char **, int, const unsigned char *,
+     unsigned);
+void sranddev(void);
+void srandomdev(void);
+void *reallocf(void *, size_t);
+
+long long
+  strtoq(const char *, char **, int);
+unsigned long long
+  strtouq(const char *, char **, int);
+
+extern char *suboptarg;
+void *valloc(size_t);
+typedef long int ptrdiff_t;
+typedef long double max_align_t;
+void *memchr(const void *, int, size_t);
+int memcmp(const void *, const void *, size_t);
+void *memcpy(void *, const void *, size_t);
+void *memmove(void *, const void *, size_t);
+void *memset(void *, int, size_t);
+char *strcat(char *, const char *);
+char *strchr(const char *, int);
+int strcmp(const char *, const char *);
+int strcoll(const char *, const char *);
+char *strcpy(char *, const char *);
+size_t strcspn(const char *, const char *);
+char *strerror(int) __asm("_" "strerror" );
+size_t strlen(const char *);
+char *strncat(char *, const char *, size_t);
+int strncmp(const char *, const char *, size_t);
+char *strncpy(char *, const char *, size_t);
+char *strpbrk(const char *, const char *);
+char *strrchr(const char *, int);
+size_t strspn(const char *, const char *);
+char *strstr(const char *, const char *);
+char *strtok(char *, const char *);
+size_t strxfrm(char *, const char *, size_t);
+char *strtok_r(char *, const char *, char **);
+int strerror_r(int, char *, size_t);
+char *strdup(const char *);
+void *memccpy(void *, const void *, int, size_t);
+char *stpcpy(char *, const char *);
+char *stpncpy(char *, const char *, size_t) __attribute__((availability(macosx,introduced=10.7)));
+char *strndup(const char *, size_t) __attribute__((availability(macosx,introduced=10.7)));
+size_t strnlen(const char *, size_t) __attribute__((availability(macosx,introduced=10.7)));
+char *strsignal(int sig);
+errno_t memset_s(void *, rsize_t, int, rsize_t) __attribute__((availability(macosx,introduced=10.9)));
+void *memmem(const void *, size_t, const void *, size_t) __attribute__((availability(macosx,introduced=10.7)));
+void memset_pattern4(void *, const void *, size_t) __attribute__((availability(macosx,introduced=10.5)));
+void memset_pattern8(void *, const void *, size_t) __attribute__((availability(macosx,introduced=10.5)));
+void memset_pattern16(void *, const void *, size_t) __attribute__((availability(macosx,introduced=10.5)));
+
+char *strcasestr(const char *, const char *);
+char *strnstr(const char *, const char *, size_t);
+size_t strlcat(char *, const char *, size_t);
+size_t strlcpy(char *, const char *, size_t);
+void strmode(int, char *);
+char *strsep(char **, const char *);
+
+
+void swab(const void * restrict, void * restrict, ssize_t);
+
+
+
+
+
+
+
+
+int bcmp(const void *, const void *, size_t) ;
+void bcopy(const void *, void *, size_t) ;
+void bzero(void *, size_t) ;
+char *index(const char *, int) ;
+char *rindex(const char *, int) ;
+
+
+int ffs(int);
+int strcasecmp(const char *, const char *);
+int strncasecmp(const char *, const char *, size_t);
+
+
+
+
+
+int ffsl(long) __attribute__((availability(macosx,introduced=10.5)));
+int ffsll(long long) __attribute__((availability(macosx,introduced=10.9)));
+int fls(int) __attribute__((availability(macosx,introduced=10.5)));
+int flsl(long) __attribute__((availability(macosx,introduced=10.5)));
+int flsll(long long) __attribute__((availability(macosx,introduced=10.9)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__attribute__((availability(macosx,introduced=10.4)))
+extern intmax_t
+imaxabs(intmax_t j);
+
+
+typedef struct {
+ intmax_t quot;
+ intmax_t rem;
+} imaxdiv_t;
+
+__attribute__((availability(macosx,introduced=10.4)))
+extern imaxdiv_t
+imaxdiv(intmax_t __numer, intmax_t __denom);
+
+
+__attribute__((availability(macosx,introduced=10.4)))
+extern intmax_t
+strtoimax(const char * restrict __nptr,
+   char ** restrict __endptr,
+   int __base);
+
+__attribute__((availability(macosx,introduced=10.4)))
+extern uintmax_t
+strtoumax(const char * restrict __nptr,
+   char ** restrict __endptr,
+   int __base);
+
+
+__attribute__((availability(macosx,introduced=10.4)))
+extern intmax_t
+wcstoimax(const wchar_t * restrict __nptr,
+   wchar_t ** restrict __endptr,
+   int __base);
+
+__attribute__((availability(macosx,introduced=10.4)))
+extern uintmax_t
+wcstoumax(const wchar_t * restrict __nptr,
+   wchar_t ** restrict __endptr,
+   int __base);
+
+
+
+
+
+struct accessx_descriptor {
+ unsigned int ad_name_offset;
+ int ad_flags;
+ int ad_pad[2];
+};
+int getattrlistbulk(int, void *, void *, size_t, uint64_t) __attribute__((availability(macosx,introduced=10.10)));
+int faccessat(int, const char *, int, int) __attribute__((availability(macosx,introduced=10.10)));
+int fchownat(int, const char *, uid_t, gid_t, int) __attribute__((availability(macosx,introduced=10.10)));
+int linkat(int, const char *, int, const char *, int) __attribute__((availability(macosx,introduced=10.10)));
+ssize_t readlinkat(int, const char *, char *, size_t) __attribute__((availability(macosx,introduced=10.10)));
+int symlinkat(const char *, int, const char *) __attribute__((availability(macosx,introduced=10.10)));
+int unlinkat(int, const char *, int) __attribute__((availability(macosx,introduced=10.10)));
+int getattrlistat(int, const char *, void *, void *, size_t, unsigned long) __attribute__((availability(macosx,introduced=10.10)));
+void _exit(int) __attribute__((noreturn));
+int access(const char *, int);
+unsigned int
+  alarm(unsigned int);
+int chdir(const char *);
+int chown(const char *, uid_t, gid_t);
+
+int close(int) __asm("_" "close" );
+
+int dup(int);
+int dup2(int, int);
+int execl(const char *, const char *, ...) __attribute__((availability(watchos,unavailable)));
+int execle(const char *, const char *, ...) __attribute__((availability(watchos,unavailable)));
+int execlp(const char *, const char *, ...) __attribute__((availability(watchos,unavailable)));
+int execv(const char *, char * const *) __attribute__((availability(watchos,unavailable)));
+int execve(const char *, char * const *, char * const *) __attribute__((availability(watchos,unavailable)));
+int execvp(const char *, char * const *) __attribute__((availability(watchos,unavailable)));
+pid_t fork(void) __attribute__((availability(watchos,unavailable)));
+long fpathconf(int, int);
+char *getcwd(char *, size_t);
+gid_t getegid(void);
+uid_t geteuid(void);
+gid_t getgid(void);
+
+
+
+int getgroups(int, gid_t []);
+
+char *getlogin(void);
+pid_t getpgrp(void);
+pid_t getpid(void);
+pid_t getppid(void);
+uid_t getuid(void);
+int isatty(int);
+int link(const char *, const char *);
+off_t lseek(int, off_t, int);
+long pathconf(const char *, int);
+
+int pause(void) __asm("_" "pause" );
+
+int pipe(int [2]);
+
+ssize_t read(int, void *, size_t) __asm("_" "read" );
+
+int rmdir(const char *);
+int setgid(gid_t);
+int setpgid(pid_t, pid_t);
+pid_t setsid(void);
+int setuid(uid_t);
+
+unsigned int
+  sleep(unsigned int) __asm("_" "sleep" );
+
+long sysconf(int);
+pid_t tcgetpgrp(int);
+int tcsetpgrp(int, pid_t);
+char *ttyname(int);
+
+
+int ttyname_r(int, char *, size_t) __asm("_" "ttyname_r" );
+
+
+
+
+int unlink(const char *);
+
+ssize_t write(int, const void *, size_t) __asm("_" "write" );
+size_t confstr(int, char *, size_t) __asm("_" "confstr" );
+
+int getopt(int, char * const [], const char *) __asm("_" "getopt" );
+
+extern char *optarg;
+extern int optind, opterr, optopt;
+__attribute__((deprecated)) __attribute__((availability(watchos,unavailable)))
+
+void *brk(const void *);
+int chroot(const char *) ;
+
+
+char *crypt(const char *, const char *);
+
+
+
+
+
+
+void encrypt(char *, int) __asm("_" "encrypt" );
+
+
+
+int fchdir(int);
+long gethostid(void);
+pid_t getpgid(pid_t);
+pid_t getsid(pid_t);
+
+
+
+int getdtablesize(void) ;
+int getpagesize(void) __attribute__((const)) ;
+char *getpass(const char *) ;
+
+
+
+
+char *getwd(char *) ;
+
+
+int lchown(const char *, uid_t, gid_t) __asm("_" "lchown" );
+
+int lockf(int, int, off_t) __asm("_" "lockf" );
+
+int nice(int) __asm("_" "nice" );
+
+ssize_t pread(int, void *, size_t, off_t) __asm("_" "pread" );
+
+ssize_t pwrite(int, const void *, size_t, off_t) __asm("_" "pwrite" );
+
+
+
+
+
+
+__attribute__((deprecated)) __attribute__((availability(watchos,unavailable)))
+
+void *sbrk(int);
+
+
+
+pid_t setpgrp(void) __asm("_" "setpgrp" );
+
+
+
+
+int setregid(gid_t, gid_t) __asm("_" "setregid" );
+
+int setreuid(uid_t, uid_t) __asm("_" "setreuid" );
+
+void swab(const void * restrict, void * restrict, ssize_t);
+void sync(void);
+int truncate(const char *, off_t);
+useconds_t ualarm(useconds_t, useconds_t);
+int usleep(useconds_t) __asm("_" "usleep" );
+pid_t vfork(void) __attribute__((availability(watchos,unavailable)));
+
+
+int fsync(int) __asm("_" "fsync" );
+
+int ftruncate(int, off_t);
+int getlogin_r(char *, size_t);
+int fchown(int, uid_t, gid_t);
+int gethostname(char *, size_t);
+ssize_t readlink(const char * restrict, char * restrict, size_t);
+int setegid(gid_t);
+int seteuid(uid_t);
+int symlink(const char *, const char *);
+int pselect(int, fd_set * restrict, fd_set * restrict,
+  fd_set * restrict, const struct timespec * restrict,
+  const sigset_t * restrict)
+
+
+
+
+  __asm("_" "pselect" "$1050")
+
+
+
+
+  ;
+
+
+
+int select(int, fd_set * restrict, fd_set * restrict,
+  fd_set * restrict, struct timeval * restrict)
+
+
+
+
+  __asm("_" "select" "$1050")
+
+
+
+
+  ;
+
+
+
+typedef __darwin_uuid_t uuid_t;
+
+
+void _Exit(int) __attribute__((noreturn));
+int accessx_np(const struct accessx_descriptor *, size_t, int *, uid_t);
+int acct(const char *);
+int add_profil(char *, size_t, unsigned long, unsigned int) __attribute__((availability(watchos,unavailable)));
+void endusershell(void);
+int execvP(const char *, const char *, char * const *) __attribute__((availability(watchos,unavailable)));
+char *fflagstostr(unsigned long);
+int getdomainname(char *, int);
+int getgrouplist(const char *, int, int *, int *);
+
+
+
+
+
+int gethostuuid(uuid_t, const struct timespec *) __attribute__((availability(macosx,introduced=10.5)));
+
+
+
+
+mode_t getmode(const void *, mode_t);
+int getpeereid(int, uid_t *, gid_t *);
+int getsgroups_np(int *, uuid_t);
+char *getusershell(void);
+int getwgroups_np(int *, uuid_t);
+int initgroups(const char *, int);
+int iruserok(unsigned long, int, const char *, const char *);
+int iruserok_sa(const void *, int, int, const char *, const char *);
+int issetugid(void);
+char *mkdtemp(char *);
+int mknod(const char *, mode_t, dev_t);
+int mkpath_np(const char *path, mode_t omode) __attribute__((availability(macosx,introduced=10.8)));
+int mkstemp(char *);
+int mkstemps(char *, int);
+char *mktemp(char *);
+int nfssvc(int, void *);
+int profil(char *, size_t, unsigned long, unsigned int);
+int pthread_setugid_np(uid_t, gid_t);
+int pthread_getugid_np( uid_t *, gid_t *);
+int rcmd(char **, int, const char *, const char *, const char *, int *);
+int rcmd_af(char **, int, const char *, const char *, const char *, int *,
+  int);
+int reboot(int);
+int revoke(const char *);
+int rresvport(int *);
+int rresvport_af(int *, int);
+int ruserok(const char *, int, const char *, const char *);
+int setdomainname(const char *, int);
+int setgroups(int, const gid_t *);
+void sethostid(long);
+int sethostname(const char *, int);
+
+void setkey(const char *) __asm("_" "setkey" );
+
+
+
+int setlogin(const char *);
+void *setmode(const char *) __asm("_" "setmode" );
+int setrgid(gid_t);
+int setruid(uid_t);
+int setsgroups_np(int, const uuid_t);
+void setusershell(void);
+int setwgroups_np(int, const uuid_t);
+int strtofflags(char **, unsigned long *, unsigned long *);
+int swapon(const char *);
+int syscall(int, ...) __attribute__((availability(watchos,unavailable)));
+int ttyslot(void);
+int undelete(const char *);
+int unwhiteout(const char *);
+void *valloc(size_t);
+
+extern char *suboptarg;
+int getsubopt(char **, char * const *, char **);
+
+
+
+int fgetattrlist(int,void*,void*,size_t,unsigned int) __attribute__((availability(macosx,introduced=10.6)));
+int fsetattrlist(int,void*,void*,size_t,unsigned int) __attribute__((availability(macosx,introduced=10.6)));
+int getattrlist(const char*,void*,void*,size_t,unsigned int) __asm("_" "getattrlist" );
+int setattrlist(const char*,void*,void*,size_t,unsigned int) __asm("_" "setattrlist" );
+int exchangedata(const char*,const char*,unsigned int) __attribute__((availability(watchos,unavailable)));
+int getdirentriesattr(int,void*,void*,size_t,unsigned int*,unsigned int*,unsigned int*,unsigned int) __attribute__((availability(watchos,unavailable)));
+struct fssearchblock;
+struct searchstate;
+
+int searchfs(const char *, struct fssearchblock *, unsigned long *, unsigned int, unsigned int, struct searchstate *) __attribute__((availability(watchos,unavailable)));
+int fsctl(const char *,unsigned long,void*,unsigned int);
+int ffsctl(int,unsigned long,void*,unsigned int) __attribute__((availability(macosx,introduced=10.6)));
+
+
+
+
+int fsync_volume_np(int, int) __attribute__((availability(macosx,introduced=10.8)));
+int sync_volume_np(const char *, int) __attribute__((availability(macosx,introduced=10.8)));
+
+extern int optreset;
+    typedef float float_t;
+    typedef double double_t;
+extern int __math_errhandling(void);
+extern int __fpclassifyf(float);
+extern int __fpclassifyd(double);
+extern int __fpclassifyl(long double);
+inline __attribute__ ((__always_inline__)) int __inline_isfinitef(float);
+inline __attribute__ ((__always_inline__)) int __inline_isfinited(double);
+inline __attribute__ ((__always_inline__)) int __inline_isfinitel(long double);
+inline __attribute__ ((__always_inline__)) int __inline_isinff(float);
+inline __attribute__ ((__always_inline__)) int __inline_isinfd(double);
+inline __attribute__ ((__always_inline__)) int __inline_isinfl(long double);
+inline __attribute__ ((__always_inline__)) int __inline_isnanf(float);
+inline __attribute__ ((__always_inline__)) int __inline_isnand(double);
+inline __attribute__ ((__always_inline__)) int __inline_isnanl(long double);
+inline __attribute__ ((__always_inline__)) int __inline_isnormalf(float);
+inline __attribute__ ((__always_inline__)) int __inline_isnormald(double);
+inline __attribute__ ((__always_inline__)) int __inline_isnormall(long double);
+inline __attribute__ ((__always_inline__)) int __inline_signbitf(float);
+inline __attribute__ ((__always_inline__)) int __inline_signbitd(double);
+inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double);
+
+inline __attribute__ ((__always_inline__)) int __inline_isfinitef(float __x) {
+    return __x == __x && __builtin_fabsf(__x) != __builtin_inff();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isfinited(double __x) {
+    return __x == __x && __builtin_fabs(__x) != __builtin_inf();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isfinitel(long double __x) {
+    return __x == __x && __builtin_fabsl(__x) != __builtin_infl();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isinff(float __x) {
+    return __builtin_fabsf(__x) == __builtin_inff();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isinfd(double __x) {
+    return __builtin_fabs(__x) == __builtin_inf();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isinfl(long double __x) {
+    return __builtin_fabsl(__x) == __builtin_infl();
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnanf(float __x) {
+    return __x != __x;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnand(double __x) {
+    return __x != __x;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnanl(long double __x) {
+    return __x != __x;
+}
+inline __attribute__ ((__always_inline__)) int __inline_signbitf(float __x) {
+    union { float __f; unsigned int __u; } __u;
+    __u.__f = __x;
+    return (int)(__u.__u >> 31);
+}
+inline __attribute__ ((__always_inline__)) int __inline_signbitd(double __x) {
+    union { double __f; unsigned long long __u; } __u;
+    __u.__f = __x;
+    return (int)(__u.__u >> 63);
+}
+
+inline __attribute__ ((__always_inline__)) int __inline_signbitl(long double __x) {
+    union {
+        long double __ld;
+        struct{ unsigned long long __m; unsigned short __sexp; } __p;
+    } __u;
+    __u.__ld = __x;
+    return (int)(__u.__p.__sexp >> 15);
+}
+
+
+
+
+
+
+
+inline __attribute__ ((__always_inline__)) int __inline_isnormalf(float __x) {
+    return __inline_isfinitef(__x) && __builtin_fabsf(__x) >= 1.17549435e-38F;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnormald(double __x) {
+    return __inline_isfinited(__x) && __builtin_fabs(__x) >= 2.2250738585072014e-308;
+}
+inline __attribute__ ((__always_inline__)) int __inline_isnormall(long double __x) {
+    return __inline_isfinitel(__x) && __builtin_fabsl(__x) >= 3.36210314311209350626e-4932L;
+}
+extern float acosf(float);
+extern double acos(double);
+extern long double acosl(long double);
+
+extern float asinf(float);
+extern double asin(double);
+extern long double asinl(long double);
+
+extern float atanf(float);
+extern double atan(double);
+extern long double atanl(long double);
+
+extern float atan2f(float, float);
+extern double atan2(double, double);
+extern long double atan2l(long double, long double);
+
+extern float cosf(float);
+extern double cos(double);
+extern long double cosl(long double);
+
+extern float sinf(float);
+extern double sin(double);
+extern long double sinl(long double);
+
+extern float tanf(float);
+extern double tan(double);
+extern long double tanl(long double);
+
+extern float acoshf(float);
+extern double acosh(double);
+extern long double acoshl(long double);
+
+extern float asinhf(float);
+extern double asinh(double);
+extern long double asinhl(long double);
+
+extern float atanhf(float);
+extern double atanh(double);
+extern long double atanhl(long double);
+
+extern float coshf(float);
+extern double cosh(double);
+extern long double coshl(long double);
+
+extern float sinhf(float);
+extern double sinh(double);
+extern long double sinhl(long double);
+
+extern float tanhf(float);
+extern double tanh(double);
+extern long double tanhl(long double);
+
+extern float expf(float);
+extern double exp(double);
+extern long double expl(long double);
+
+extern float exp2f(float);
+extern double exp2(double);
+extern long double exp2l(long double);
+
+extern float expm1f(float);
+extern double expm1(double);
+extern long double expm1l(long double);
+
+extern float logf(float);
+extern double log(double);
+extern long double logl(long double);
+
+extern float log10f(float);
+extern double log10(double);
+extern long double log10l(long double);
+
+extern float log2f(float);
+extern double log2(double);
+extern long double log2l(long double);
+
+extern float log1pf(float);
+extern double log1p(double);
+extern long double log1pl(long double);
+
+extern float logbf(float);
+extern double logb(double);
+extern long double logbl(long double);
+
+extern float modff(float, float *);
+extern double modf(double, double *);
+extern long double modfl(long double, long double *);
+
+extern float ldexpf(float, int);
+extern double ldexp(double, int);
+extern long double ldexpl(long double, int);
+
+extern float frexpf(float, int *);
+extern double frexp(double, int *);
+extern long double frexpl(long double, int *);
+
+extern int ilogbf(float);
+extern int ilogb(double);
+extern int ilogbl(long double);
+
+extern float scalbnf(float, int);
+extern double scalbn(double, int);
+extern long double scalbnl(long double, int);
+
+extern float scalblnf(float, long int);
+extern double scalbln(double, long int);
+extern long double scalblnl(long double, long int);
+
+extern float fabsf(float);
+extern double fabs(double);
+extern long double fabsl(long double);
+
+extern float cbrtf(float);
+extern double cbrt(double);
+extern long double cbrtl(long double);
+
+extern float hypotf(float, float);
+extern double hypot(double, double);
+extern long double hypotl(long double, long double);
+
+extern float powf(float, float);
+extern double pow(double, double);
+extern long double powl(long double, long double);
+
+extern float sqrtf(float);
+extern double sqrt(double);
+extern long double sqrtl(long double);
+
+extern float erff(float);
+extern double erf(double);
+extern long double erfl(long double);
+
+extern float erfcf(float);
+extern double erfc(double);
+extern long double erfcl(long double);
+
+
+
+
+extern float lgammaf(float);
+extern double lgamma(double);
+extern long double lgammal(long double);
+
+extern float tgammaf(float);
+extern double tgamma(double);
+extern long double tgammal(long double);
+
+extern float ceilf(float);
+extern double ceil(double);
+extern long double ceill(long double);
+
+extern float floorf(float);
+extern double floor(double);
+extern long double floorl(long double);
+
+extern float nearbyintf(float);
+extern double nearbyint(double);
+extern long double nearbyintl(long double);
+
+extern float rintf(float);
+extern double rint(double);
+extern long double rintl(long double);
+
+extern long int lrintf(float);
+extern long int lrint(double);
+extern long int lrintl(long double);
+
+extern float roundf(float);
+extern double round(double);
+extern long double roundl(long double);
+
+extern long int lroundf(float);
+extern long int lround(double);
+extern long int lroundl(long double);
+
+
+
+
+extern long long int llrintf(float);
+extern long long int llrint(double);
+extern long long int llrintl(long double);
+
+extern long long int llroundf(float);
+extern long long int llround(double);
+extern long long int llroundl(long double);
+
+
+extern float truncf(float);
+extern double trunc(double);
+extern long double truncl(long double);
+
+extern float fmodf(float, float);
+extern double fmod(double, double);
+extern long double fmodl(long double, long double);
+
+extern float remainderf(float, float);
+extern double remainder(double, double);
+extern long double remainderl(long double, long double);
+
+extern float remquof(float, float, int *);
+extern double remquo(double, double, int *);
+extern long double remquol(long double, long double, int *);
+
+extern float copysignf(float, float);
+extern double copysign(double, double);
+extern long double copysignl(long double, long double);
+
+extern float nanf(const char *);
+extern double nan(const char *);
+extern long double nanl(const char *);
+
+extern float nextafterf(float, float);
+extern double nextafter(double, double);
+extern long double nextafterl(long double, long double);
+
+extern double nexttoward(double, long double);
+extern float nexttowardf(float, long double);
+extern long double nexttowardl(long double, long double);
+
+extern float fdimf(float, float);
+extern double fdim(double, double);
+extern long double fdiml(long double, long double);
+
+extern float fmaxf(float, float);
+extern double fmax(double, double);
+extern long double fmaxl(long double, long double);
+
+extern float fminf(float, float);
+extern double fmin(double, double);
+extern long double fminl(long double, long double);
+
+extern float fmaf(float, float, float);
+extern double fma(double, double, double);
+extern long double fmal(long double, long double, long double);
+extern float __inff(void) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+extern double __inf(void) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+extern long double __infl(void) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+extern float __nan(void) __attribute__((availability(macosx,introduced=10.0)));
+
+
+
+
+
+
+
+extern float lgammaf_r(float, int *) __attribute__((availability(macosx,introduced=10.6)));
+extern double lgamma_r(double, int *) __attribute__((availability(macosx,introduced=10.6)));
+extern long double lgammal_r(long double, int *) __attribute__((availability(macosx,introduced=10.6)));
+extern float __exp10f(float) __attribute__((availability(macosx,introduced=10.9)));
+extern double __exp10(double) __attribute__((availability(macosx,introduced=10.9)));
+
+
+
+
+
+inline __attribute__ ((__always_inline__)) void __sincosf(float __x, float *__sinp, float *__cosp);
+inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp);
+extern float __cospif(float) __attribute__((availability(macosx,introduced=10.9)));
+extern double __cospi(double) __attribute__((availability(macosx,introduced=10.9)));
+extern float __sinpif(float) __attribute__((availability(macosx,introduced=10.9)));
+extern double __sinpi(double) __attribute__((availability(macosx,introduced=10.9)));
+extern float __tanpif(float) __attribute__((availability(macosx,introduced=10.9)));
+extern double __tanpi(double) __attribute__((availability(macosx,introduced=10.9)));
+inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp);
+inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp);
+
+
+
+
+
+
+struct __float2 { float __sinval; float __cosval; };
+struct __double2 { double __sinval; double __cosval; };
+
+extern struct __float2 __sincosf_stret(float);
+extern struct __double2 __sincos_stret(double);
+extern struct __float2 __sincospif_stret(float);
+extern struct __double2 __sincospi_stret(double);
+
+inline __attribute__ ((__always_inline__)) void __sincosf(float __x, float *__sinp, float *__cosp) {
+    const struct __float2 __stret = __sincosf_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+
+inline __attribute__ ((__always_inline__)) void __sincos(double __x, double *__sinp, double *__cosp) {
+    const struct __double2 __stret = __sincos_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+
+inline __attribute__ ((__always_inline__)) void __sincospif(float __x, float *__sinp, float *__cosp) {
+    const struct __float2 __stret = __sincospif_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+
+inline __attribute__ ((__always_inline__)) void __sincospi(double __x, double *__sinp, double *__cosp) {
+    const struct __double2 __stret = __sincospi_stret(__x);
+    *__sinp = __stret.__sinval; *__cosp = __stret.__cosval;
+}
+
+
+
+
+
+
+
+extern double j0(double) __attribute__((availability(macosx,introduced=10.0)));
+extern double j1(double) __attribute__((availability(macosx,introduced=10.0)));
+extern double jn(int, double) __attribute__((availability(macosx,introduced=10.0)));
+extern double y0(double) __attribute__((availability(macosx,introduced=10.0)));
+extern double y1(double) __attribute__((availability(macosx,introduced=10.0)));
+extern double yn(int, double) __attribute__((availability(macosx,introduced=10.0)));
+extern double scalb(double, double);
+extern int signgam;
+extern long int rinttol(double) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+extern long int roundtol(double) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+extern double drem(double, double) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+extern int finite(double) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+extern double gamma(double) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+extern double significand(double) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+
+
+struct exception {
+    int type;
+    char *name;
+    double arg1;
+    double arg2;
+    double retval;
+};
+
+extern int matherr(struct exception *) __attribute__((availability(macosx,introduced=10.0,deprecated=10.9)));
+#pragma GCC visibility push(default)
+extern int eaccess(const char*, int);
+extern void setproctitle(const char *fmt, ...);
+
+
+#pragma GCC visibility pop
+#pragma GCC visibility push(default)
+void *ruby_xmalloc(size_t) ;
+void *ruby_xmalloc2(size_t,size_t) ;
+void *ruby_xcalloc(size_t,size_t) ;
+void *ruby_xrealloc(void*,size_t) ;
+void *ruby_xrealloc2(void*,size_t,size_t) ;
+void ruby_xfree(void*);
+#pragma GCC visibility pop
+typedef __builtin_va_list va_list;
+typedef __builtin_va_list __gnuc_va_list;
+
+#pragma GCC visibility push(default)
+typedef unsigned long VALUE;
+typedef unsigned long ID;
+typedef char ruby_check_sizeof_int[4 == sizeof(int) ? 1 : -1];
+typedef char ruby_check_sizeof_long[8 == sizeof(long) ? 1 : -1];
+
+typedef char ruby_check_sizeof_long_long[8 == sizeof(long long) ? 1 : -1];
+
+typedef char ruby_check_sizeof_voidp[8 == sizeof(void*) ? 1 : -1];
+
+
+
+
+
+VALUE rb_int2inum(long);
+
+
+VALUE rb_uint2inum(VALUE);
+
+
+
+
+VALUE rb_ll2inum(long long);
+
+VALUE rb_ull2inum(unsigned long long);
+__attribute__ ((noreturn)) void rb_out_of_int(long num);
+
+
+
+static inline int
+rb_long2int_inline(long n)
+{
+    int i = (int)n;
+    if ((long)i != n)
+ rb_out_of_int(n);
+
+    return i;
+}
+enum ruby_special_consts {
+
+    RUBY_Qfalse = 0x00,
+    RUBY_Qtrue = 0x14,
+    RUBY_Qnil = 0x08,
+    RUBY_Qundef = 0x34,
+
+    RUBY_IMMEDIATE_MASK = 0x07,
+    RUBY_FIXNUM_FLAG = 0x01,
+    RUBY_FLONUM_MASK = 0x03,
+    RUBY_FLONUM_FLAG = 0x02,
+    RUBY_SYMBOL_FLAG = 0x0c,
+    RUBY_SPECIAL_SHIFT = 8
+};
+enum ruby_value_type {
+    RUBY_T_NONE = 0x00,
+
+    RUBY_T_OBJECT = 0x01,
+    RUBY_T_CLASS = 0x02,
+    RUBY_T_MODULE = 0x03,
+    RUBY_T_FLOAT = 0x04,
+    RUBY_T_STRING = 0x05,
+    RUBY_T_REGEXP = 0x06,
+    RUBY_T_ARRAY = 0x07,
+    RUBY_T_HASH = 0x08,
+    RUBY_T_STRUCT = 0x09,
+    RUBY_T_BIGNUM = 0x0a,
+    RUBY_T_FILE = 0x0b,
+    RUBY_T_DATA = 0x0c,
+    RUBY_T_MATCH = 0x0d,
+    RUBY_T_COMPLEX = 0x0e,
+    RUBY_T_RATIONAL = 0x0f,
+
+    RUBY_T_NIL = 0x11,
+    RUBY_T_TRUE = 0x12,
+    RUBY_T_FALSE = 0x13,
+    RUBY_T_SYMBOL = 0x14,
+    RUBY_T_FIXNUM = 0x15,
+
+    RUBY_T_UNDEF = 0x1b,
+    RUBY_T_NODE = 0x1c,
+    RUBY_T_ICLASS = 0x1d,
+    RUBY_T_ZOMBIE = 0x1e,
+
+    RUBY_T_MASK = 0x1f
+};
+static inline int rb_type(VALUE obj);
+void rb_check_type(VALUE,int);
+
+
+VALUE rb_str_to_str(VALUE);
+VALUE rb_string_value(volatile VALUE*);
+char *rb_string_value_ptr(volatile VALUE*);
+char *rb_string_value_cstr(volatile VALUE*);
+
+
+
+
+
+void rb_check_safe_obj(VALUE);
+__attribute__ ((deprecated)) void rb_check_safe_str(VALUE);
+
+
+
+
+
+
+
+VALUE rb_str_export(VALUE);
+
+
+
+
+VALUE rb_str_export_locale(VALUE);
+
+VALUE rb_get_path(VALUE);
+
+
+VALUE rb_get_path_no_checksafe(VALUE);
+
+
+
+void rb_secure(int);
+int rb_safe_level(void);
+void rb_set_safe_level(int);
+void rb_set_safe_level_force(int);
+void rb_secure_update(VALUE);
+__attribute__ ((noreturn)) void rb_insecure_operation(void);
+
+VALUE rb_errinfo(void);
+void rb_set_errinfo(VALUE);
+
+long rb_num2long(VALUE);
+VALUE rb_num2ulong(VALUE);
+static inline long
+rb_num2long_inline(VALUE x)
+{
+    if ((((int)(long)(x))&RUBY_FIXNUM_FLAG))
+ return ((long)(((long)(x))>>(int)(1)));
+    else
+ return (long)rb_num2long(x);
+}
+
+static inline unsigned long
+rb_num2ulong_inline(VALUE x)
+{
+    if ((((int)(long)(x))&RUBY_FIXNUM_FLAG))
+ return (unsigned long)((long)(((long)(x))>>(int)(1)));
+    else
+ return (unsigned long)rb_num2ulong(x);
+}
+
+
+long rb_num2int(VALUE);
+long rb_fix2int(VALUE);
+
+
+static inline int
+rb_num2int_inline(VALUE x)
+{
+    if ((((int)(long)(x))&RUBY_FIXNUM_FLAG))
+ return ((int)rb_fix2int((VALUE)(x)));
+    else
+ return (int)rb_num2int(x);
+}
+
+
+unsigned long rb_num2uint(VALUE);
+
+unsigned long rb_fix2uint(VALUE);
+short rb_num2short(VALUE);
+unsigned short rb_num2ushort(VALUE);
+short rb_fix2short(VALUE);
+unsigned short rb_fix2ushort(VALUE);
+
+static inline short
+rb_num2short_inline(VALUE x)
+{
+    if ((((int)(long)(x))&RUBY_FIXNUM_FLAG))
+ return (rb_fix2short((VALUE)(x)));
+    else
+ return rb_num2short(x);
+}
+
+
+
+
+
+long long rb_num2ll(VALUE);
+unsigned long long rb_num2ull(VALUE);
+static inline long long
+rb_num2ll_inline(VALUE x)
+{
+    if ((((int)(long)(x))&RUBY_FIXNUM_FLAG))
+ return ((long)(((long)(x))>>(int)(1)));
+    else
+ return rb_num2ll(x);
+}
+double rb_num2dbl(VALUE);
+
+
+VALUE rb_uint2big(VALUE);
+VALUE rb_int2big(long);
+
+VALUE rb_newobj(void);
+VALUE rb_newobj_of(VALUE, VALUE);
+VALUE rb_obj_setup(VALUE obj, VALUE klass, VALUE type);
+struct RBasic {
+    VALUE flags;
+    const VALUE klass;
+}
+
+    __attribute__((aligned(sizeof(VALUE))))
+
+;
+
+VALUE rb_obj_hide(VALUE obj);
+VALUE rb_obj_reveal(VALUE obj, VALUE klass);
+
+
+
+
+struct RObject {
+    struct RBasic basic;
+    union {
+ struct {
+     long numiv;
+     VALUE *ivptr;
+            struct st_table *iv_index_tbl;
+ } heap;
+ VALUE ary[3];
+    } as;
+};
+typedef struct rb_classext_struct rb_classext_t;
+
+struct RClass {
+    struct RBasic basic;
+    VALUE super;
+    rb_classext_t *ptr;
+    struct method_table_wrapper *m_tbl_wrapper;
+};
+struct RFloat {
+    struct RBasic basic;
+    double float_value;
+};
+
+double rb_float_value(VALUE);
+VALUE rb_float_new(double);
+VALUE rb_float_new_in_heap(double);
+
+
+
+
+
+
+
+struct RString {
+    struct RBasic basic;
+    union {
+ struct {
+     long len;
+     char *ptr;
+     union {
+  long capa;
+  VALUE shared;
+     } aux;
+ } heap;
+ char ary[((int)((sizeof(VALUE)*3)/sizeof(char)-1)) + 1];
+    } as;
+};
+struct RArray {
+    struct RBasic basic;
+    union {
+ struct {
+     long len;
+     union {
+  long capa;
+  VALUE shared;
+     } aux;
+     const VALUE *ptr;
+ } heap;
+ const VALUE ary[3];
+    } as;
+};
+struct RRegexp {
+    struct RBasic basic;
+    struct re_pattern_buffer *ptr;
+    const VALUE src;
+    unsigned long usecnt;
+};
+
+
+
+
+
+struct RHash {
+    struct RBasic basic;
+    struct st_table *ntbl;
+    int iter_lev;
+    const VALUE ifnone;
+};
+struct RFile {
+    struct RBasic basic;
+    struct rb_io_t *fptr;
+};
+
+struct RRational {
+    struct RBasic basic;
+    const VALUE num;
+    const VALUE den;
+};
+
+
+
+
+struct RComplex {
+    struct RBasic basic;
+    const VALUE real;
+    const VALUE imag;
+};
+
+
+
+
+struct RData {
+    struct RBasic basic;
+    void (*dmark)(void*);
+    void (*dfree)(void*);
+    void *data;
+};
+
+typedef struct rb_data_type_struct rb_data_type_t;
+
+struct rb_data_type_struct {
+    const char *wrap_struct_name;
+    struct {
+ void (*dmark)(void*);
+ void (*dfree)(void*);
+ size_t (*dsize)(const void *);
+ void *reserved[2];
+
+    } function;
+    const rb_data_type_t *parent;
+    void *data;
+
+    VALUE flags;
+};
+
+
+
+
+
+struct RTypedData {
+    struct RBasic basic;
+    const rb_data_type_t *type;
+    VALUE typed_flag;
+    void *data;
+};
+typedef void (*RUBY_DATA_FUNC)(void*);
+
+VALUE rb_data_object_alloc(VALUE,void*,RUBY_DATA_FUNC,RUBY_DATA_FUNC);
+VALUE rb_data_typed_object_alloc(VALUE klass, void *datap, const rb_data_type_t *);
+int rb_typeddata_inherited_p(const rb_data_type_t *child, const rb_data_type_t *parent);
+int rb_typeddata_is_kind_of(VALUE, const rb_data_type_t *);
+void *rb_check_typeddata(VALUE, const rb_data_type_t *);
+struct RStruct {
+    struct RBasic basic;
+    union {
+ struct {
+     long len;
+     const VALUE *ptr;
+ } heap;
+ const VALUE ary[3];
+    } as;
+};
+struct RBignum {
+    struct RBasic basic;
+    union {
+        struct {
+            long len;
+            unsigned int *digits;
+        } heap;
+        unsigned int ary[(8*3/4)];
+    } as;
+};
+void rb_gc_writebarrier(VALUE a, VALUE b);
+void rb_gc_writebarrier_unprotect_promoted(VALUE obj);
+static inline VALUE
+rb_obj_wb_unprotect(VALUE x, const char *filename __attribute__ ((unused)), int line __attribute__ ((unused)))
+{
+
+
+
+
+
+
+    if ((((struct RBasic*)((x)))->flags&((((VALUE)1)<<5)))) {
+ if ((((struct RBasic*)((x)))->flags&((((VALUE)1)<<6)))) {
+     rb_gc_writebarrier_unprotect_promoted(x);
+ }
+ ((struct RBasic*)(x))->flags &= ~(((VALUE)1)<<5);
+    }
+
+    return x;
+}
+
+static inline VALUE
+rb_obj_written(VALUE a, VALUE oldv __attribute__ ((unused)), VALUE b, const char *filename __attribute__ ((unused)), int line __attribute__ ((unused)))
+{
+
+
+
+
+
+
+    if ((((struct RBasic*)((a)))->flags&((((VALUE)1)<<6))) && !(((VALUE)(b) & RUBY_IMMEDIATE_MASK) || !!(((VALUE)(b) & ~((VALUE)RUBY_Qnil)) == 0))) {
+ rb_gc_writebarrier(a, b);
+    }
+
+
+    return a;
+}
+
+static inline VALUE
+rb_obj_write(VALUE a, VALUE *slot, VALUE b, const char *filename __attribute__ ((unused)), int line __attribute__ ((unused)))
+{
+
+
+
+
+    *slot = b;
+
+
+    rb_obj_written(a, ((VALUE)RUBY_Qundef) , b, filename, line);
+
+    return a;
+}
+static inline VALUE
+rb_long2num_inline(long v)
+{
+    if ((((v) < (9223372036854775807L>>1)+1) && ((v) >= (((long)(-9223372036854775807L -1L))>>(int)(1)))))
+ return ((VALUE)(((long)(v))<<1 | RUBY_FIXNUM_FLAG));
+    else
+ return rb_int2big(v);
+}
+
+
+static inline VALUE
+rb_ulong2num_inline(unsigned long v)
+{
+    if (((v) < (9223372036854775807L>>1)+1))
+ return ((VALUE)(((long)(v))<<1 | RUBY_FIXNUM_FLAG));
+    else
+ return rb_uint2big(v);
+}
+
+
+static inline char
+rb_num2char_inline(VALUE x)
+{
+    if ((rb_type((VALUE)(x)) == RUBY_T_STRING) && ((!(((struct RBasic*)(x))->flags & (((VALUE)1)<<(12 +1))) ? (long)((((struct RBasic*)(x))->flags >> (12 +2)) & (((((VALUE)1)<<(12 +2))|(((VALUE)1)<<(12 +3))|(((VALUE)1)<<(12 +4))|(((VALUE)1)<<(12 +5))|(((VALUE)1)<<(12 +6))) >> (12 +2))) : ((struct RString*)(x))->as.heap.len)>=1))
+ return (!(((struct RBasic*)(x))->flags & (((VALUE)1)<<(12 +1))) ? ((struct RString*)(x))->as.ary : ((struct RString*)(x))->as.heap.ptr)[0];
+    else
+ return (char)(rb_num2int_inline(x) & 0xff);
+}
+void *rb_alloc_tmp_buffer(volatile VALUE *store, long len) ;
+void rb_free_tmp_buffer(volatile VALUE *store);
+void rb_obj_infect(VALUE,VALUE);
+
+typedef int ruby_glob_func(const char*,VALUE, void*);
+void rb_glob(const char*,void(*)(const char*,VALUE,void*),VALUE);
+int ruby_glob(const char*,int,ruby_glob_func*,VALUE);
+int ruby_brace_glob(const char*,int,ruby_glob_func*,VALUE);
+
+VALUE rb_define_class(const char*,VALUE);
+VALUE rb_define_module(const char*);
+VALUE rb_define_class_under(VALUE, const char*, VALUE);
+VALUE rb_define_module_under(VALUE, const char*);
+
+void rb_include_module(VALUE,VALUE);
+void rb_extend_object(VALUE,VALUE);
+void rb_prepend_module(VALUE,VALUE);
+
+struct rb_global_variable;
+
+typedef VALUE rb_gvar_getter_t(ID id, void *data, struct rb_global_variable *gvar);
+typedef void rb_gvar_setter_t(VALUE val, ID id, void *data, struct rb_global_variable *gvar);
+typedef void rb_gvar_marker_t(VALUE *var);
+
+VALUE rb_gvar_undef_getter(ID id, void *data, struct rb_global_variable *gvar);
+void rb_gvar_undef_setter(VALUE val, ID id, void *data, struct rb_global_variable *gvar);
+void rb_gvar_undef_marker(VALUE *var);
+
+VALUE rb_gvar_val_getter(ID id, void *data, struct rb_global_variable *gvar);
+void rb_gvar_val_setter(VALUE val, ID id, void *data, struct rb_global_variable *gvar);
+void rb_gvar_val_marker(VALUE *var);
+
+VALUE rb_gvar_var_getter(ID id, void *data, struct rb_global_variable *gvar);
+void rb_gvar_var_setter(VALUE val, ID id, void *data, struct rb_global_variable *gvar);
+void rb_gvar_var_marker(VALUE *var);
+
+void rb_gvar_readonly_setter(VALUE val, ID id, void *data, struct rb_global_variable *gvar);
+
+void rb_define_variable(const char*,VALUE*);
+void rb_define_virtual_variable(const char*,VALUE(*)(),void(*)());
+void rb_define_hooked_variable(const char*,VALUE*,VALUE(*)(),void(*)());
+void rb_define_readonly_variable(const char*,VALUE*);
+void rb_define_const(VALUE,const char*,VALUE);
+void rb_define_global_const(const char*,VALUE);
+
+
+void rb_define_method(VALUE,const char*,VALUE(*)(),int);
+void rb_define_module_function(VALUE,const char*,VALUE(*)(),int);
+void rb_define_global_function(const char*,VALUE(*)(),int);
+
+void rb_undef_method(VALUE,const char*);
+void rb_define_alias(VALUE,const char*,const char*);
+void rb_define_attr(VALUE,const char*,int,int);
+
+void rb_global_variable(VALUE*);
+void rb_gc_register_mark_object(VALUE);
+void rb_gc_register_address(VALUE*);
+void rb_gc_unregister_address(VALUE*);
+
+ID rb_intern(const char*);
+ID rb_intern2(const char*, long);
+ID rb_intern_str(VALUE str);
+const char *rb_id2name(ID);
+ID rb_check_id(volatile VALUE *);
+ID rb_to_id(VALUE);
+VALUE rb_id2str(ID);
+const char *rb_class2name(VALUE);
+const char *rb_obj_classname(VALUE);
+
+void rb_p(VALUE);
+
+VALUE rb_eval_string(const char*);
+VALUE rb_eval_string_protect(const char*, int*);
+VALUE rb_eval_string_wrap(const char*, int*);
+VALUE rb_funcall(VALUE, ID, int, ...);
+VALUE rb_funcallv(VALUE, ID, int, const VALUE*);
+VALUE rb_funcallv_public(VALUE, ID, int, const VALUE*);
+
+
+VALUE rb_funcall_passing_block(VALUE, ID, int, const VALUE*);
+VALUE rb_funcall_with_block(VALUE, ID, int, const VALUE*, VALUE);
+int rb_scan_args(int, const VALUE*, const char*, ...);
+VALUE rb_call_super(int, const VALUE*);
+
+
+
+
+VALUE rb_gv_set(const char*, VALUE);
+VALUE rb_gv_get(const char*);
+VALUE rb_iv_get(VALUE, const char*);
+VALUE rb_iv_set(VALUE, const char*, VALUE);
+
+VALUE rb_equal(VALUE,VALUE);
+
+VALUE *rb_ruby_verbose_ptr(void);
+VALUE *rb_ruby_debug_ptr(void);
+
+
+
+__attribute__ ((noreturn)) void rb_raise(VALUE, const char*, ...) __attribute__((format(printf, 2, 3)));
+__attribute__ ((noreturn)) void rb_fatal(const char*, ...) __attribute__((format(printf, 1, 2)));
+__attribute__ ((noreturn)) void rb_bug(const char*, ...) __attribute__((format(printf, 1, 2)));
+__attribute__ ((noreturn)) void rb_bug_errno(const char*, int);
+__attribute__ ((noreturn)) void rb_sys_fail(const char*);
+__attribute__ ((noreturn)) void rb_sys_fail_str(VALUE);
+__attribute__ ((noreturn)) void rb_mod_sys_fail(VALUE, const char*);
+__attribute__ ((noreturn)) void rb_mod_sys_fail_str(VALUE, VALUE);
+__attribute__ ((noreturn)) void rb_readwrite_sys_fail(int, const char*);
+__attribute__ ((noreturn)) void rb_iter_break(void);
+__attribute__ ((noreturn)) void rb_iter_break_value(VALUE);
+__attribute__ ((noreturn)) void rb_exit(int);
+__attribute__ ((noreturn)) void rb_notimplement(void);
+VALUE rb_syserr_new(int, const char *);
+VALUE rb_syserr_new_str(int n, VALUE arg);
+__attribute__ ((noreturn)) void rb_syserr_fail(int, const char*);
+__attribute__ ((noreturn)) void rb_syserr_fail_str(int, VALUE);
+__attribute__ ((noreturn)) void rb_mod_syserr_fail(VALUE, int, const char*);
+__attribute__ ((noreturn)) void rb_mod_syserr_fail_str(VALUE, int, VALUE);
+
+
+void rb_warning(const char*, ...) __attribute__((format(printf, 1, 2)));
+void rb_compile_warning(const char *, int, const char*, ...) __attribute__((format(printf, 3, 4)));
+void rb_sys_warning(const char*, ...) __attribute__((format(printf, 1, 2)));
+
+void rb_warn(const char*, ...) __attribute__((format(printf, 1, 2)));
+void rb_compile_warn(const char *, int, const char*, ...) __attribute__((format(printf, 3, 4)));
+typedef VALUE rb_block_call_func(VALUE yielded_arg, VALUE callback_arg, int argc, const VALUE *argv, VALUE blockarg);
+
+
+
+
+typedef VALUE (*rb_block_call_func_t)();
+
+
+VALUE rb_each(VALUE);
+VALUE rb_yield(VALUE);
+VALUE rb_yield_values(int n, ...);
+VALUE rb_yield_values2(int n, const VALUE *argv);
+VALUE rb_yield_splat(VALUE);
+VALUE rb_yield_block(VALUE, VALUE, int, const VALUE *, VALUE);
+int rb_block_given_p(void);
+void rb_need_block(void);
+VALUE rb_iterate(VALUE(*)(VALUE),VALUE,VALUE(*)(),VALUE);
+VALUE rb_block_call(VALUE,ID,int,const VALUE*,rb_block_call_func_t,VALUE);
+VALUE rb_rescue(VALUE(*)(),VALUE,VALUE(*)(),VALUE);
+VALUE rb_rescue2(VALUE(*)(),VALUE,VALUE(*)(),VALUE,...);
+VALUE rb_ensure(VALUE(*)(),VALUE,VALUE(*)(),VALUE);
+VALUE rb_catch(const char*,VALUE(*)(),VALUE);
+VALUE rb_catch_obj(VALUE,VALUE(*)(),VALUE);
+__attribute__ ((noreturn)) void rb_throw(const char*,VALUE);
+__attribute__ ((noreturn)) void rb_throw_obj(VALUE,VALUE);
+
+VALUE rb_require(const char*);
+
+extern VALUE rb_mKernel;
+extern VALUE rb_mComparable;
+extern VALUE rb_mEnumerable;
+extern VALUE rb_mErrno;
+extern VALUE rb_mFileTest;
+extern VALUE rb_mGC;
+extern VALUE rb_mMath;
+extern VALUE rb_mProcess;
+extern VALUE rb_mWaitReadable;
+extern VALUE rb_mWaitWritable;
+
+extern VALUE rb_cBasicObject;
+extern VALUE rb_cObject;
+extern VALUE rb_cArray;
+extern VALUE rb_cBignum;
+extern VALUE rb_cBinding;
+extern VALUE rb_cClass;
+extern VALUE rb_cCont;
+extern VALUE rb_cDir;
+extern VALUE rb_cData;
+extern VALUE rb_cFalseClass;
+extern VALUE rb_cEncoding;
+extern VALUE rb_cEnumerator;
+extern VALUE rb_cFile;
+extern VALUE rb_cFixnum;
+extern VALUE rb_cFloat;
+extern VALUE rb_cHash;
+extern VALUE rb_cInteger;
+extern VALUE rb_cIO;
+extern VALUE rb_cMatch;
+extern VALUE rb_cMethod;
+extern VALUE rb_cModule;
+extern VALUE rb_cNameErrorMesg;
+extern VALUE rb_cNilClass;
+extern VALUE rb_cNumeric;
+extern VALUE rb_cProc;
+extern VALUE rb_cRandom;
+extern VALUE rb_cRange;
+extern VALUE rb_cRational;
+extern VALUE rb_cComplex;
+extern VALUE rb_cRegexp;
+extern VALUE rb_cStat;
+extern VALUE rb_cString;
+extern VALUE rb_cStruct;
+extern VALUE rb_cSymbol;
+extern VALUE rb_cThread;
+extern VALUE rb_cTime;
+extern VALUE rb_cTrueClass;
+extern VALUE rb_cUnboundMethod;
+
+extern VALUE rb_eException;
+extern VALUE rb_eStandardError;
+extern VALUE rb_eSystemExit;
+extern VALUE rb_eInterrupt;
+extern VALUE rb_eSignal;
+extern VALUE rb_eFatal;
+extern VALUE rb_eArgError;
+extern VALUE rb_eEOFError;
+extern VALUE rb_eIndexError;
+extern VALUE rb_eStopIteration;
+extern VALUE rb_eKeyError;
+extern VALUE rb_eRangeError;
+extern VALUE rb_eIOError;
+extern VALUE rb_eRuntimeError;
+extern VALUE rb_eSecurityError;
+extern VALUE rb_eSystemCallError;
+extern VALUE rb_eThreadError;
+extern VALUE rb_eTypeError;
+extern VALUE rb_eZeroDivError;
+extern VALUE rb_eNotImpError;
+extern VALUE rb_eNoMemError;
+extern VALUE rb_eNoMethodError;
+extern VALUE rb_eFloatDomainError;
+extern VALUE rb_eLocalJumpError;
+extern VALUE rb_eSysStackError;
+extern VALUE rb_eRegexpError;
+extern VALUE rb_eEncodingError;
+extern VALUE rb_eEncCompatError;
+
+extern VALUE rb_eScriptError;
+extern VALUE rb_eNameError;
+extern VALUE rb_eSyntaxError;
+extern VALUE rb_eLoadError;
+
+extern VALUE rb_eMathDomainError;
+
+extern VALUE rb_stdin, rb_stdout, rb_stderr;
+
+static inline VALUE
+rb_class_of(VALUE obj)
+{
+    if (((VALUE)(obj) & RUBY_IMMEDIATE_MASK)) {
+ if ((((int)(long)(obj))&RUBY_FIXNUM_FLAG)) return rb_cFixnum;
+ if (((((int)(long)(obj))&RUBY_FLONUM_MASK) == RUBY_FLONUM_FLAG)) return rb_cFloat;
+ if (obj == ((VALUE)RUBY_Qtrue)) return rb_cTrueClass;
+ if ((((VALUE)(obj)&~((~(VALUE)0)<<RUBY_SPECIAL_SHIFT))==RUBY_SYMBOL_FLAG)) return rb_cSymbol;
+    }
+    else if (!!(((VALUE)(obj) & ~((VALUE)RUBY_Qnil)) == 0)) {
+ if (obj == ((VALUE)RUBY_Qnil)) return rb_cNilClass;
+ if (obj == ((VALUE)RUBY_Qfalse)) return rb_cFalseClass;
+    }
+    return ((struct RBasic*)(obj))->klass;
+}
+
+static inline int
+rb_type(VALUE obj)
+{
+    if (((VALUE)(obj) & RUBY_IMMEDIATE_MASK)) {
+ if ((((int)(long)(obj))&RUBY_FIXNUM_FLAG)) return RUBY_T_FIXNUM;
+        if (((((int)(long)(obj))&RUBY_FLONUM_MASK) == RUBY_FLONUM_FLAG)) return RUBY_T_FLOAT;
+        if (obj == ((VALUE)RUBY_Qtrue)) return RUBY_T_TRUE;
+ if ((((VALUE)(obj)&~((~(VALUE)0)<<RUBY_SPECIAL_SHIFT))==RUBY_SYMBOL_FLAG)) return RUBY_T_SYMBOL;
+ if (obj == ((VALUE)RUBY_Qundef)) return RUBY_T_UNDEF;
+    }
+    else if (!!(((VALUE)(obj) & ~((VALUE)RUBY_Qnil)) == 0)) {
+ if (obj == ((VALUE)RUBY_Qnil)) return RUBY_T_NIL;
+ if (obj == ((VALUE)RUBY_Qfalse)) return RUBY_T_FALSE;
+    }
+    return (int)(((struct RBasic*)(obj))->flags & RUBY_T_MASK);
+}
+#pragma GCC visibility push(default)
+
+
+typedef unsigned long st_data_t;
+typedef struct st_table st_table;
+
+typedef st_data_t st_index_t;
+typedef int st_compare_func(st_data_t, st_data_t);
+typedef st_index_t st_hash_func(st_data_t);
+
+typedef char st_check_for_sizeof_st_index_t[8 == (int)sizeof(st_index_t) ? 1 : -1];
+
+
+struct st_hash_type {
+    int (*compare)( );
+    st_index_t (*hash)( );
+};
+struct st_table {
+    const struct st_hash_type *type;
+    st_index_t num_bins;
+    unsigned int entries_packed : 1;
+    __extension__
+
+    st_index_t num_entries : (sizeof(st_index_t) * 8) - 1;
+    union {
+ struct {
+     struct st_table_entry **bins;
+     struct st_table_entry *head, *tail;
+ } big;
+ struct {
+     struct st_packed_entry *entries;
+     st_index_t real_entries;
+ } packed;
+    } as;
+};
+
+
+
+enum st_retval {ST_CONTINUE, ST_STOP, ST_DELETE, ST_CHECK};
+
+st_table *st_init_table(const struct st_hash_type *);
+st_table *st_init_table_with_size(const struct st_hash_type *, st_index_t);
+st_table *st_init_numtable(void);
+st_table *st_init_numtable_with_size(st_index_t);
+st_table *st_init_strtable(void);
+st_table *st_init_strtable_with_size(st_index_t);
+st_table *st_init_strcasetable(void);
+st_table *st_init_strcasetable_with_size(st_index_t);
+int st_delete(st_table *, st_data_t *, st_data_t *);
+int st_delete_safe(st_table *, st_data_t *, st_data_t *, st_data_t);
+int st_shift(st_table *, st_data_t *, st_data_t *);
+int st_insert(st_table *, st_data_t, st_data_t);
+int st_insert2(st_table *, st_data_t, st_data_t, st_data_t (*)(st_data_t));
+int st_lookup(st_table *, st_data_t, st_data_t *);
+int st_get_key(st_table *, st_data_t, st_data_t *);
+typedef int st_update_callback_func(st_data_t *key, st_data_t *value, st_data_t arg, int existing);
+int st_update(st_table *table, st_data_t key, st_update_callback_func *func, st_data_t arg);
+int st_foreach(st_table *, int (*)(), st_data_t);
+int st_foreach_check(st_table *, int (*)(), st_data_t, st_data_t);
+int st_reverse_foreach(st_table *, int (*)(), st_data_t);
+st_index_t st_keys(st_table *table, st_data_t *keys, st_index_t size);
+st_index_t st_keys_check(st_table *table, st_data_t *keys, st_index_t size, st_data_t never);
+st_index_t st_values(st_table *table, st_data_t *values, st_index_t size);
+st_index_t st_values_check(st_table *table, st_data_t *values, st_index_t size, st_data_t never);
+void st_add_direct(st_table *, st_data_t, st_data_t);
+void st_free_table(st_table *);
+void st_cleanup_safe(st_table *, st_data_t);
+void st_clear(st_table *);
+st_table *st_copy(st_table *);
+int st_numcmp(st_data_t, st_data_t);
+st_index_t st_numhash(st_data_t);
+int st_locale_insensitive_strcasecmp(const char *s1, const char *s2);
+int st_locale_insensitive_strncasecmp(const char *s1, const char *s2, size_t n);
+
+
+size_t st_memsize(const st_table *);
+st_index_t st_hash(const void *ptr, size_t len, st_index_t h);
+st_index_t st_hash_uint32(st_index_t h, uint32_t i);
+st_index_t st_hash_uint(st_index_t h, st_index_t i);
+st_index_t st_hash_end(st_index_t h);
+st_index_t st_hash_start(st_index_t h);
+
+
+#pragma GCC visibility pop
+
+#pragma GCC visibility push(default)
+void rb_mem_clear(register VALUE*, register long);
+VALUE rb_assoc_new(VALUE, VALUE);
+VALUE rb_check_array_type(VALUE);
+VALUE rb_ary_new(void);
+VALUE rb_ary_new_capa(long capa);
+VALUE rb_ary_new_from_args(long n, ...);
+VALUE rb_ary_new_from_values(long n, const VALUE *elts);
+VALUE rb_ary_tmp_new(long);
+void rb_ary_free(VALUE);
+void rb_ary_modify(VALUE);
+VALUE rb_ary_freeze(VALUE);
+VALUE rb_ary_shared_with_p(VALUE, VALUE);
+VALUE rb_ary_aref(int, VALUE*, VALUE);
+VALUE rb_ary_subseq(VALUE, long, long);
+void rb_ary_store(VALUE, long, VALUE);
+VALUE rb_ary_dup(VALUE);
+VALUE rb_ary_resurrect(VALUE ary);
+VALUE rb_ary_to_ary(VALUE);
+VALUE rb_ary_to_s(VALUE);
+VALUE rb_ary_cat(VALUE, const VALUE *, long);
+VALUE rb_ary_push(VALUE, VALUE);
+VALUE rb_ary_pop(VALUE);
+VALUE rb_ary_shift(VALUE);
+VALUE rb_ary_unshift(VALUE, VALUE);
+VALUE rb_ary_entry(VALUE, long);
+VALUE rb_ary_each(VALUE);
+VALUE rb_ary_join(VALUE, VALUE);
+VALUE rb_ary_reverse(VALUE);
+VALUE rb_ary_rotate(VALUE, long);
+VALUE rb_ary_sort(VALUE);
+VALUE rb_ary_sort_bang(VALUE);
+VALUE rb_ary_delete(VALUE, VALUE);
+VALUE rb_ary_delete_at(VALUE, long);
+VALUE rb_ary_clear(VALUE);
+VALUE rb_ary_plus(VALUE, VALUE);
+VALUE rb_ary_concat(VALUE, VALUE);
+VALUE rb_ary_assoc(VALUE, VALUE);
+VALUE rb_ary_rassoc(VALUE, VALUE);
+VALUE rb_ary_includes(VALUE, VALUE);
+VALUE rb_ary_cmp(VALUE, VALUE);
+VALUE rb_ary_replace(VALUE copy, VALUE orig);
+VALUE rb_get_values_at(VALUE, long, int, VALUE*, VALUE(*)(VALUE,long));
+VALUE rb_ary_resize(VALUE ary, long len);
+
+
+
+
+VALUE rb_big_new(long, int);
+int rb_bigzero_p(VALUE x);
+VALUE rb_big_clone(VALUE);
+void rb_big_2comp(VALUE);
+VALUE rb_big_norm(VALUE);
+void rb_big_resize(VALUE big, long len);
+VALUE rb_cstr_to_inum(const char*, int, int);
+VALUE rb_str_to_inum(VALUE, int, int);
+VALUE rb_cstr2inum(const char*, int);
+VALUE rb_str2inum(VALUE, int);
+VALUE rb_big2str(VALUE, int);
+__attribute__ ((deprecated)) VALUE rb_big2str0(VALUE, int, int);
+long rb_big2long(VALUE);
+
+VALUE rb_big2ulong(VALUE);
+
+__attribute__ ((deprecated)) VALUE rb_big2ulong_pack(VALUE x);
+
+long long rb_big2ll(VALUE);
+unsigned long long rb_big2ull(VALUE);
+
+__attribute__ ((deprecated)) void rb_quad_pack(char*,VALUE);
+__attribute__ ((deprecated)) VALUE rb_quad_unpack(const char*,int);
+void rb_big_pack(VALUE val, unsigned long *buf, long num_longs);
+VALUE rb_big_unpack(unsigned long *buf, long num_longs);
+int rb_uv_to_utf8(char[6],unsigned long);
+VALUE rb_dbl2big(double);
+double rb_big2dbl(VALUE);
+VALUE rb_big_cmp(VALUE, VALUE);
+VALUE rb_big_eq(VALUE, VALUE);
+VALUE rb_big_eql(VALUE, VALUE);
+VALUE rb_big_plus(VALUE, VALUE);
+VALUE rb_big_minus(VALUE, VALUE);
+VALUE rb_big_mul(VALUE, VALUE);
+VALUE rb_big_div(VALUE, VALUE);
+VALUE rb_big_idiv(VALUE, VALUE);
+VALUE rb_big_modulo(VALUE, VALUE);
+VALUE rb_big_divmod(VALUE, VALUE);
+VALUE rb_big_pow(VALUE, VALUE);
+VALUE rb_big_and(VALUE, VALUE);
+VALUE rb_big_or(VALUE, VALUE);
+VALUE rb_big_xor(VALUE, VALUE);
+VALUE rb_big_lshift(VALUE, VALUE);
+VALUE rb_big_rshift(VALUE, VALUE);
+int rb_integer_pack(VALUE val, void *words, size_t numwords, size_t wordsize, size_t nails, int flags);
+VALUE rb_integer_unpack(const void *words, size_t numwords, size_t wordsize, size_t nails, int flags);
+size_t rb_absint_size(VALUE val, int *nlz_bits_ret);
+size_t rb_absint_numwords(VALUE val, size_t word_numbits, size_t *nlz_bits_ret);
+int rb_absint_singlebit_p(VALUE val);
+
+
+VALUE rb_rational_raw(VALUE, VALUE);
+
+
+VALUE rb_rational_new(VALUE, VALUE);
+
+
+VALUE rb_Rational(VALUE, VALUE);
+
+
+VALUE rb_flt_rationalize_with_prec(VALUE, VALUE);
+VALUE rb_flt_rationalize(VALUE);
+
+VALUE rb_complex_raw(VALUE, VALUE);
+
+
+VALUE rb_complex_new(VALUE, VALUE);
+
+
+VALUE rb_complex_polar(VALUE, VALUE);
+VALUE rb_Complex(VALUE, VALUE);
+
+
+
+VALUE rb_class_boot(VALUE);
+VALUE rb_class_new(VALUE);
+VALUE rb_mod_init_copy(VALUE, VALUE);
+VALUE rb_singleton_class_clone(VALUE);
+void rb_singleton_class_attached(VALUE,VALUE);
+VALUE rb_make_metaclass(VALUE, VALUE);
+void rb_check_inheritable(VALUE);
+VALUE rb_class_inherited(VALUE, VALUE);
+VALUE rb_define_class_id(ID, VALUE);
+VALUE rb_define_class_id_under(VALUE, ID, VALUE);
+VALUE rb_module_new(void);
+VALUE rb_define_module_id(ID);
+VALUE rb_define_module_id_under(VALUE, ID);
+VALUE rb_include_class_new(VALUE, VALUE);
+VALUE rb_mod_included_modules(VALUE);
+VALUE rb_mod_include_p(VALUE, VALUE);
+VALUE rb_mod_ancestors(VALUE);
+VALUE rb_class_instance_methods(int, VALUE*, VALUE);
+VALUE rb_class_public_instance_methods(int, VALUE*, VALUE);
+VALUE rb_class_protected_instance_methods(int, VALUE*, VALUE);
+VALUE rb_class_private_instance_methods(int, VALUE*, VALUE);
+VALUE rb_obj_singleton_methods(int, VALUE*, VALUE);
+void rb_define_method_id(VALUE, ID, VALUE (*)(), int);
+void rb_frozen_class_p(VALUE);
+void rb_undef(VALUE, ID);
+void rb_define_protected_method(VALUE, const char*, VALUE (*)(), int);
+void rb_define_private_method(VALUE, const char*, VALUE (*)(), int);
+void rb_define_singleton_method(VALUE, const char*, VALUE(*)(), int);
+VALUE rb_singleton_class(VALUE);
+
+int rb_cmpint(VALUE, VALUE, VALUE);
+__attribute__ ((noreturn)) void rb_cmperr(VALUE, VALUE);
+
+VALUE rb_fiber_new(VALUE (*)(), VALUE);
+VALUE rb_fiber_resume(VALUE fib, int argc, VALUE *args);
+VALUE rb_fiber_yield(int argc, VALUE *args);
+VALUE rb_fiber_current(void);
+VALUE rb_fiber_alive_p(VALUE);
+
+VALUE rb_enum_values_pack(int, const VALUE*);
+
+VALUE rb_enumeratorize(VALUE, VALUE, int, VALUE *);
+typedef VALUE rb_enumerator_size_func(VALUE, VALUE, VALUE);
+VALUE rb_enumeratorize_with_size(VALUE, VALUE, int, VALUE *, rb_enumerator_size_func *);
+VALUE rb_exc_new(VALUE, const char*, long);
+VALUE rb_exc_new_cstr(VALUE, const char*);
+VALUE rb_exc_new_str(VALUE, VALUE);
+
+
+__attribute__ ((noreturn)) void rb_loaderror(const char*, ...) __attribute__((format(printf, 1, 2)));
+__attribute__ ((noreturn)) void rb_loaderror_with_path(VALUE path, const char*, ...) __attribute__((format(printf, 2, 3)));
+__attribute__ ((noreturn)) void rb_name_error(ID, const char*, ...) __attribute__((format(printf, 2, 3)));
+__attribute__ ((noreturn)) void rb_name_error_str(VALUE, const char*, ...) __attribute__((format(printf, 2, 3)));
+__attribute__ ((noreturn)) void rb_invalid_str(const char*, const char*);
+void rb_compile_error(const char*, int, const char*, ...) __attribute__((format(printf, 3, 4)));
+void rb_compile_error_with_enc(const char*, int, void *, const char*, ...) __attribute__((format(printf, 4, 5)));
+void rb_compile_error_append(const char*, ...) __attribute__((format(printf, 1, 2)));
+__attribute__ ((noreturn)) void rb_error_frozen(const char*);
+void rb_error_untrusted(VALUE);
+void rb_check_frozen(VALUE);
+void rb_check_trusted(VALUE);
+void rb_check_copyable(VALUE obj, VALUE orig);
+
+
+
+
+
+int rb_sourceline(void);
+const char *rb_sourcefile(void);
+VALUE rb_check_funcall(VALUE, ID, int, const VALUE*);
+
+__attribute__ ((noreturn)) void rb_error_arity(int, int, int);
+
+static inline void
+rb_check_arity(int argc, int min, int max)
+{
+    if ((argc < min) || (max != (-1) && argc > max))
+ rb_error_arity(argc, min, max);
+}
+
+
+typedef struct {
+    int maxfd;
+    fd_set *fdset;
+} rb_fdset_t;
+
+void rb_fd_init(rb_fdset_t *);
+void rb_fd_term(rb_fdset_t *);
+void rb_fd_zero(rb_fdset_t *);
+void rb_fd_set(int, rb_fdset_t *);
+void rb_fd_clr(int, rb_fdset_t *);
+int rb_fd_isset(int, const rb_fdset_t *);
+void rb_fd_copy(rb_fdset_t *, const fd_set *, int);
+void rb_fd_dup(rb_fdset_t *dst, const rb_fdset_t *src);
+int rb_fd_select(int, rb_fdset_t *, rb_fdset_t *, rb_fdset_t *, struct timeval *);
+__attribute__ ((noreturn)) void rb_exc_raise(VALUE);
+__attribute__ ((noreturn)) void rb_exc_fatal(VALUE);
+VALUE rb_f_exit(int,VALUE*);
+VALUE rb_f_abort(int,VALUE*);
+void rb_remove_method(VALUE, const char*);
+void rb_remove_method_id(VALUE, ID);
+
+
+
+typedef VALUE (*rb_alloc_func_t)(VALUE);
+void rb_define_alloc_func(VALUE, rb_alloc_func_t);
+void rb_undef_alloc_func(VALUE);
+rb_alloc_func_t rb_get_alloc_func(VALUE);
+void rb_clear_cache(void);
+void rb_clear_constant_cache(void);
+void rb_clear_method_cache_by_class(VALUE);
+void rb_alias(VALUE, ID, ID);
+void rb_attr(VALUE,ID,int,int,int);
+int rb_method_boundp(VALUE, ID, int);
+int rb_method_basic_definition_p(VALUE, ID);
+VALUE rb_eval_cmd(VALUE, VALUE, int);
+int rb_obj_respond_to(VALUE, ID, int);
+int rb_respond_to(VALUE, ID);
+VALUE rb_f_notimplement(int argc, VALUE *argv, VALUE obj);
+void rb_interrupt(void);
+VALUE rb_apply(VALUE, ID, VALUE);
+void rb_backtrace(void);
+ID rb_frame_this_func(void);
+VALUE rb_obj_instance_eval(int, VALUE*, VALUE);
+VALUE rb_obj_instance_exec(int, VALUE*, VALUE);
+VALUE rb_mod_module_eval(int, VALUE*, VALUE);
+VALUE rb_mod_module_exec(int, VALUE*, VALUE);
+void rb_load(VALUE, int);
+void rb_load_protect(VALUE, int, int*);
+__attribute__ ((noreturn)) void rb_jump_tag(int);
+int rb_provided(const char*);
+int rb_feature_provided(const char *, const char **);
+void rb_provide(const char*);
+VALUE rb_f_require(VALUE, VALUE);
+VALUE rb_require_safe(VALUE, int);
+void rb_obj_call_init(VALUE, int, VALUE*);
+VALUE rb_class_new_instance(int, VALUE*, VALUE);
+VALUE rb_block_proc(void);
+VALUE rb_block_lambda(void);
+VALUE rb_proc_new(VALUE (*)( ), VALUE);
+VALUE rb_obj_is_proc(VALUE);
+VALUE rb_proc_call(VALUE, VALUE);
+VALUE rb_proc_call_with_block(VALUE, int argc, const VALUE *argv, VALUE);
+int rb_proc_arity(VALUE);
+VALUE rb_proc_lambda_p(VALUE);
+VALUE rb_binding_new(void);
+VALUE rb_obj_method(VALUE, VALUE);
+VALUE rb_obj_is_method(VALUE);
+VALUE rb_method_call(int, VALUE*, VALUE);
+VALUE rb_method_call_with_block(int, VALUE *, VALUE, VALUE);
+int rb_mod_method_arity(VALUE, ID);
+int rb_obj_method_arity(VALUE, ID);
+VALUE rb_protect(VALUE (*)(VALUE), VALUE, int*);
+void rb_set_end_proc(void (*)(VALUE), VALUE);
+void rb_exec_end_proc(void);
+void rb_thread_schedule(void);
+void rb_thread_wait_fd(int);
+int rb_thread_fd_writable(int);
+void rb_thread_fd_close(int);
+int rb_thread_alone(void);
+__attribute__ ((deprecated)) void rb_thread_polling(void);
+void rb_thread_sleep(int);
+void rb_thread_sleep_forever(void);
+void rb_thread_sleep_deadly(void);
+VALUE rb_thread_stop(void);
+VALUE rb_thread_wakeup(VALUE);
+VALUE rb_thread_wakeup_alive(VALUE);
+VALUE rb_thread_run(VALUE);
+VALUE rb_thread_kill(VALUE);
+VALUE rb_thread_create(VALUE (*)(), void*);
+__attribute__ ((deprecated)) int rb_thread_select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
+int rb_thread_fd_select(int, rb_fdset_t *, rb_fdset_t *, rb_fdset_t *, struct timeval *);
+void rb_thread_wait_for(struct timeval);
+VALUE rb_thread_current(void);
+VALUE rb_thread_main(void);
+VALUE rb_thread_local_aref(VALUE, ID);
+VALUE rb_thread_local_aset(VALUE, ID, VALUE);
+void rb_thread_atfork(void);
+void rb_thread_atfork_before_exec(void);
+VALUE rb_exec_recursive(VALUE(*)(VALUE, VALUE, int),VALUE,VALUE);
+VALUE rb_exec_recursive_paired(VALUE(*)(VALUE, VALUE, int),VALUE,VALUE,VALUE);
+VALUE rb_exec_recursive_outer(VALUE(*)(VALUE, VALUE, int),VALUE,VALUE);
+VALUE rb_exec_recursive_paired_outer(VALUE(*)(VALUE, VALUE, int),VALUE,VALUE,VALUE);
+
+VALUE rb_dir_getwd(void);
+
+VALUE rb_file_s_expand_path(int, VALUE *);
+VALUE rb_file_expand_path(VALUE, VALUE);
+VALUE rb_file_s_absolute_path(int, VALUE *);
+VALUE rb_file_absolute_path(VALUE, VALUE);
+VALUE rb_file_dirname(VALUE fname);
+int rb_find_file_ext_safe(VALUE*, const char* const*, int);
+VALUE rb_find_file_safe(VALUE, int);
+int rb_find_file_ext(VALUE*, const char* const*);
+VALUE rb_find_file(VALUE);
+VALUE rb_file_directory_p(VALUE,VALUE);
+VALUE rb_str_encode_ospath(VALUE);
+int rb_is_absolute_path(const char *);
+
+__attribute__ ((noreturn)) void rb_memerror(void);
+int rb_during_gc(void);
+void rb_gc_mark_locations(VALUE*, VALUE*);
+void rb_mark_tbl(struct st_table*);
+void rb_mark_set(struct st_table*);
+void rb_mark_hash(struct st_table*);
+void rb_gc_mark_maybe(VALUE);
+void rb_gc_mark(VALUE);
+void rb_gc_force_recycle(VALUE);
+void rb_gc(void);
+void rb_gc_copy_finalizer(VALUE,VALUE);
+void rb_gc_finalize_deferred(void);
+void rb_gc_call_finalizer_at_exit(void);
+VALUE rb_gc_enable(void);
+VALUE rb_gc_disable(void);
+VALUE rb_gc_start(void);
+__attribute__ ((deprecated)) void rb_gc_set_params(void);
+VALUE rb_define_finalizer(VALUE, VALUE);
+VALUE rb_undefine_finalizer(VALUE);
+size_t rb_gc_count(void);
+size_t rb_gc_stat(VALUE);
+VALUE rb_gc_latest_gc_info(VALUE);
+
+void st_foreach_safe(struct st_table *, int (*)(), st_data_t);
+VALUE rb_check_hash_type(VALUE);
+void rb_hash_foreach(VALUE, int (*)(), VALUE);
+VALUE rb_hash(VALUE);
+VALUE rb_hash_new(void);
+VALUE rb_hash_dup(VALUE);
+VALUE rb_hash_freeze(VALUE);
+VALUE rb_hash_aref(VALUE, VALUE);
+VALUE rb_hash_lookup(VALUE, VALUE);
+VALUE rb_hash_lookup2(VALUE, VALUE, VALUE);
+VALUE rb_hash_fetch(VALUE, VALUE);
+VALUE rb_hash_aset(VALUE, VALUE, VALUE);
+VALUE rb_hash_clear(VALUE);
+VALUE rb_hash_delete_if(VALUE);
+VALUE rb_hash_delete(VALUE,VALUE);
+VALUE rb_hash_set_ifnone(VALUE hash, VALUE ifnone);
+typedef VALUE rb_hash_update_func(VALUE newkey, VALUE oldkey, VALUE value);
+VALUE rb_hash_update_by(VALUE hash1, VALUE hash2, rb_hash_update_func *func);
+struct st_table *rb_hash_tbl(VALUE);
+int rb_path_check(const char*);
+int rb_env_path_tainted(void);
+VALUE rb_env_clear(void);
+
+
+extern VALUE rb_fs;
+extern VALUE rb_output_fs;
+extern VALUE rb_rs;
+extern VALUE rb_default_rs;
+extern VALUE rb_output_rs;
+VALUE rb_io_write(VALUE, VALUE);
+VALUE rb_io_gets(VALUE);
+VALUE rb_io_getbyte(VALUE);
+VALUE rb_io_ungetc(VALUE, VALUE);
+VALUE rb_io_ungetbyte(VALUE, VALUE);
+VALUE rb_io_close(VALUE);
+VALUE rb_io_flush(VALUE);
+VALUE rb_io_eof(VALUE);
+VALUE rb_io_binmode(VALUE);
+VALUE rb_io_ascii8bit_binmode(VALUE);
+VALUE rb_io_addstr(VALUE, VALUE);
+VALUE rb_io_printf(int, VALUE*, VALUE);
+VALUE rb_io_print(int, VALUE*, VALUE);
+VALUE rb_io_puts(int, VALUE*, VALUE);
+VALUE rb_io_fdopen(int, int, const char*);
+VALUE rb_io_get_io(VALUE);
+VALUE rb_file_open(const char*, const char*);
+VALUE rb_file_open_str(VALUE, const char*);
+VALUE rb_gets(void);
+void rb_write_error(const char*);
+void rb_write_error2(const char*, long);
+void rb_close_before_exec(int lowfd, int maxhint, VALUE noclose_fds);
+int rb_pipe(int *pipes);
+int rb_reserved_fd_p(int fd);
+int rb_cloexec_open(const char *pathname, int flags, mode_t mode);
+int rb_cloexec_dup(int oldfd);
+int rb_cloexec_dup2(int oldfd, int newfd);
+int rb_cloexec_pipe(int fildes[2]);
+int rb_cloexec_fcntl_dupfd(int fd, int minfd);
+
+void rb_update_max_fd(int fd);
+void rb_fd_fix_cloexec(int fd);
+
+VALUE rb_marshal_dump(VALUE, VALUE);
+VALUE rb_marshal_load(VALUE);
+void rb_marshal_define_compat(VALUE newclass, VALUE oldclass, VALUE (*dumper)(VALUE), VALUE (*loader)(VALUE, VALUE));
+
+__attribute__ ((noreturn)) void rb_num_zerodiv(void);
+
+VALUE rb_num_coerce_bin(VALUE, VALUE, ID);
+VALUE rb_num_coerce_cmp(VALUE, VALUE, ID);
+VALUE rb_num_coerce_relop(VALUE, VALUE, ID);
+VALUE rb_num_coerce_bit(VALUE, VALUE, ID);
+VALUE rb_num2fix(VALUE);
+VALUE rb_fix2str(VALUE, int);
+VALUE rb_dbl_cmp(double, double);
+
+int rb_eql(VALUE, VALUE);
+VALUE rb_any_to_s(VALUE);
+VALUE rb_inspect(VALUE);
+VALUE rb_obj_is_instance_of(VALUE, VALUE);
+VALUE rb_obj_is_kind_of(VALUE, VALUE);
+VALUE rb_obj_alloc(VALUE);
+VALUE rb_obj_clone(VALUE);
+VALUE rb_obj_dup(VALUE);
+VALUE rb_obj_init_copy(VALUE,VALUE);
+VALUE rb_obj_taint(VALUE);
+VALUE rb_obj_tainted(VALUE);
+VALUE rb_obj_untaint(VALUE);
+VALUE rb_obj_untrust(VALUE);
+VALUE rb_obj_untrusted(VALUE);
+VALUE rb_obj_trust(VALUE);
+VALUE rb_obj_freeze(VALUE);
+VALUE rb_obj_frozen_p(VALUE);
+VALUE rb_obj_id(VALUE);
+VALUE rb_obj_class(VALUE);
+VALUE rb_class_real(VALUE);
+VALUE rb_class_inherited_p(VALUE, VALUE);
+VALUE rb_class_superclass(VALUE);
+VALUE rb_class_get_superclass(VALUE);
+VALUE rb_convert_type(VALUE,int,const char*,const char*);
+VALUE rb_check_convert_type(VALUE,int,const char*,const char*);
+VALUE rb_check_to_integer(VALUE, const char *);
+VALUE rb_check_to_float(VALUE);
+VALUE rb_to_int(VALUE);
+VALUE rb_check_to_int(VALUE);
+VALUE rb_Integer(VALUE);
+VALUE rb_to_float(VALUE);
+VALUE rb_Float(VALUE);
+VALUE rb_String(VALUE);
+VALUE rb_Array(VALUE);
+VALUE rb_Hash(VALUE);
+double rb_cstr_to_dbl(const char*, int);
+double rb_str_to_dbl(VALUE, int);
+
+extern int ruby_sourceline;
+extern char *ruby_sourcefile;
+ID rb_id_attrset(ID);
+int rb_is_const_id(ID);
+int rb_is_global_id(ID);
+int rb_is_instance_id(ID);
+int rb_is_attrset_id(ID);
+int rb_is_class_id(ID);
+int rb_is_local_id(ID);
+int rb_is_junk_id(ID);
+int rb_symname_p(const char*);
+int rb_sym_interned_p(VALUE);
+VALUE rb_backref_get(void);
+void rb_backref_set(VALUE);
+VALUE rb_lastline_get(void);
+void rb_lastline_set(VALUE);
+VALUE rb_sym_all_symbols(void);
+
+void rb_last_status_set(int status, pid_t pid);
+VALUE rb_last_status_get(void);
+struct rb_exec_arg {
+    VALUE execarg_obj;
+};
+__attribute__ ((deprecated)) int rb_proc_exec_n(int, VALUE*, const char*);
+int rb_proc_exec(const char*);
+__attribute__ ((deprecated)) VALUE rb_exec_arg_init(int argc, VALUE *argv, int accept_shell, struct rb_exec_arg *e);
+__attribute__ ((deprecated)) int rb_exec_arg_addopt(struct rb_exec_arg *e, VALUE key, VALUE val);
+__attribute__ ((deprecated)) void rb_exec_arg_fixup(struct rb_exec_arg *e);
+__attribute__ ((deprecated)) int rb_run_exec_options(const struct rb_exec_arg *e, struct rb_exec_arg *s);
+__attribute__ ((deprecated)) int rb_run_exec_options_err(const struct rb_exec_arg *e, struct rb_exec_arg *s, char*, size_t);
+__attribute__ ((deprecated)) int rb_exec(const struct rb_exec_arg*);
+__attribute__ ((deprecated)) int rb_exec_err(const struct rb_exec_arg*, char*, size_t);
+__attribute__ ((deprecated)) pid_t rb_fork(int*, int (*)(void*), void*, VALUE);
+__attribute__ ((deprecated)) pid_t rb_fork_err(int*, int (*)(void*, char*, size_t), void*, VALUE, char*, size_t);
+VALUE rb_f_exec(int,VALUE*);
+pid_t rb_waitpid(pid_t pid, int *status, int flags);
+void rb_syswait(pid_t pid);
+pid_t rb_spawn(int, VALUE*);
+pid_t rb_spawn_err(int, VALUE*, char*, size_t);
+VALUE rb_proc_times(VALUE);
+VALUE rb_detach_process(pid_t pid);
+
+VALUE rb_range_new(VALUE, VALUE, int);
+VALUE rb_range_beg_len(VALUE, long*, long*, long, int);
+int rb_range_values(VALUE range, VALUE *begp, VALUE *endp, int *exclp);
+
+unsigned int rb_genrand_int32(void);
+double rb_genrand_real(void);
+void rb_reset_random_seed(void);
+VALUE rb_random_bytes(VALUE rnd, long n);
+VALUE rb_random_int(VALUE rnd, VALUE max);
+unsigned int rb_random_int32(VALUE rnd);
+double rb_random_real(VALUE rnd);
+unsigned long rb_random_ulong_limited(VALUE rnd, unsigned long limit);
+unsigned long rb_genrand_ulong_limited(unsigned long i);
+
+
+int rb_memcicmp(const void*,const void*,long);
+void rb_match_busy(VALUE);
+VALUE rb_reg_nth_defined(int, VALUE);
+VALUE rb_reg_nth_match(int, VALUE);
+int rb_reg_backref_number(VALUE match, VALUE backref);
+VALUE rb_reg_last_match(VALUE);
+VALUE rb_reg_match_pre(VALUE);
+VALUE rb_reg_match_post(VALUE);
+VALUE rb_reg_match_last(VALUE);
+
+VALUE rb_reg_new_str(VALUE, int);
+VALUE rb_reg_new(const char *, long, int);
+VALUE rb_reg_alloc(void);
+VALUE rb_reg_init_str(VALUE re, VALUE s, int options);
+VALUE rb_reg_match(VALUE, VALUE);
+VALUE rb_reg_match2(VALUE);
+int rb_reg_options(VALUE);
+
+
+extern VALUE rb_argv0;
+VALUE rb_get_argv(void);
+void *rb_load_file(const char*);
+void *rb_load_file_str(VALUE);
+
+VALUE rb_f_kill(int, VALUE*);
+
+
+void (*ruby_posix_signal(int, void (*)(int)))(int);
+
+void rb_trap_exit(void);
+void rb_trap_exec(void);
+const char *ruby_signal_name(int);
+void ruby_default_signal(int);
+
+VALUE rb_f_sprintf(int, const VALUE*);
+VALUE rb_sprintf(const char*, ...) __attribute__((format(printf, 1, 2)));
+VALUE rb_vsprintf(const char*, va_list);
+VALUE rb_str_catf(VALUE, const char*, ...) __attribute__((format(printf, 2, 3)));
+VALUE rb_str_vcatf(VALUE, const char*, va_list);
+VALUE rb_str_format(int, const VALUE *, VALUE);
+
+VALUE rb_str_new(const char*, long);
+VALUE rb_str_new_cstr(const char*);
+VALUE rb_str_new_shared(VALUE);
+VALUE rb_str_new_frozen(VALUE);
+VALUE rb_str_new_with_class(VALUE, const char*, long);
+VALUE rb_tainted_str_new_cstr(const char*);
+VALUE rb_tainted_str_new(const char*, long);
+VALUE rb_external_str_new(const char*, long);
+VALUE rb_external_str_new_cstr(const char*);
+VALUE rb_locale_str_new(const char*, long);
+VALUE rb_locale_str_new_cstr(const char*);
+VALUE rb_filesystem_str_new(const char*, long);
+VALUE rb_filesystem_str_new_cstr(const char*);
+VALUE rb_str_buf_new(long);
+VALUE rb_str_buf_new_cstr(const char*);
+VALUE rb_str_buf_new2(const char*);
+VALUE rb_str_tmp_new(long);
+VALUE rb_usascii_str_new(const char*, long);
+VALUE rb_usascii_str_new_cstr(const char*);
+void rb_str_free(VALUE);
+void rb_str_shared_replace(VALUE, VALUE);
+VALUE rb_str_buf_append(VALUE, VALUE);
+VALUE rb_str_buf_cat(VALUE, const char*, long);
+VALUE rb_str_buf_cat2(VALUE, const char*);
+VALUE rb_str_buf_cat_ascii(VALUE, const char*);
+VALUE rb_obj_as_string(VALUE);
+VALUE rb_check_string_type(VALUE);
+void rb_must_asciicompat(VALUE);
+VALUE rb_str_dup(VALUE);
+VALUE rb_str_resurrect(VALUE str);
+VALUE rb_str_locktmp(VALUE);
+VALUE rb_str_unlocktmp(VALUE);
+VALUE rb_str_dup_frozen(VALUE);
+
+VALUE rb_str_plus(VALUE, VALUE);
+VALUE rb_str_times(VALUE, VALUE);
+long rb_str_sublen(VALUE, long);
+VALUE rb_str_substr(VALUE, long, long);
+VALUE rb_str_subseq(VALUE, long, long);
+char *rb_str_subpos(VALUE, long, long*);
+void rb_str_modify(VALUE);
+void rb_str_modify_expand(VALUE, long);
+VALUE rb_str_freeze(VALUE);
+void rb_str_set_len(VALUE, long);
+VALUE rb_str_resize(VALUE, long);
+VALUE rb_str_cat(VALUE, const char*, long);
+VALUE rb_str_cat2(VALUE, const char*);
+VALUE rb_str_append(VALUE, VALUE);
+VALUE rb_str_concat(VALUE, VALUE);
+st_index_t rb_memhash(const void *ptr, long len);
+st_index_t rb_hash_start(st_index_t);
+st_index_t rb_hash_uint32(st_index_t, uint32_t);
+st_index_t rb_hash_uint(st_index_t, st_index_t);
+st_index_t rb_hash_end(st_index_t);
+
+
+
+st_index_t rb_str_hash(VALUE);
+int rb_str_hash_cmp(VALUE,VALUE);
+int rb_str_comparable(VALUE, VALUE);
+int rb_str_cmp(VALUE, VALUE);
+VALUE rb_str_equal(VALUE str1, VALUE str2);
+VALUE rb_str_drop_bytes(VALUE, long);
+void rb_str_update(VALUE, long, long, VALUE);
+VALUE rb_str_replace(VALUE, VALUE);
+VALUE rb_str_inspect(VALUE);
+VALUE rb_str_dump(VALUE);
+VALUE rb_str_split(VALUE, const char*);
+void rb_str_associate(VALUE, VALUE);
+VALUE rb_str_associated(VALUE);
+void rb_str_setter(VALUE, ID, VALUE*);
+VALUE rb_str_intern(VALUE);
+VALUE rb_sym_to_s(VALUE);
+long rb_str_strlen(VALUE);
+VALUE rb_str_length(VALUE);
+long rb_str_offset(VALUE, long);
+size_t rb_str_capacity(VALUE);
+VALUE rb_str_ellipsize(VALUE, long);
+VALUE rb_str_scrub(VALUE, VALUE);
+VALUE rb_struct_new(VALUE, ...);
+VALUE rb_struct_define(const char*, ...);
+VALUE rb_struct_define_under(VALUE, const char*, ...);
+VALUE rb_struct_alloc(VALUE, VALUE);
+VALUE rb_struct_initialize(VALUE, VALUE);
+VALUE rb_struct_aref(VALUE, VALUE);
+VALUE rb_struct_aset(VALUE, VALUE, VALUE);
+VALUE rb_struct_getmember(VALUE, ID);
+__attribute__ ((deprecated)) VALUE rb_struct_iv_get(VALUE, const char*);
+VALUE rb_struct_s_members(VALUE);
+VALUE rb_struct_members(VALUE);
+VALUE rb_struct_alloc_noinit(VALUE);
+VALUE rb_struct_define_without_accessor(const char *, VALUE, rb_alloc_func_t, ...);
+VALUE rb_struct_define_without_accessor_under(VALUE outer, const char *class_name, VALUE super, rb_alloc_func_t alloc, ...);
+
+
+typedef void rb_unblock_function_t(void *);
+typedef VALUE rb_blocking_function_t(void *);
+void rb_thread_check_ints(void);
+int rb_thread_interrupted(VALUE thval);
+
+
+__attribute__ ((deprecated)) VALUE rb_thread_blocking_region(rb_blocking_function_t *func, void *data1, rb_unblock_function_t *ubf, void *data2);
+
+
+
+VALUE rb_mutex_new(void);
+VALUE rb_mutex_locked_p(VALUE mutex);
+VALUE rb_mutex_trylock(VALUE mutex);
+VALUE rb_mutex_lock(VALUE mutex);
+VALUE rb_mutex_unlock(VALUE mutex);
+VALUE rb_mutex_sleep(VALUE self, VALUE timeout);
+VALUE rb_mutex_synchronize(VALUE mutex, VALUE (*func)(VALUE arg), VALUE arg);
+
+VALUE rb_time_new(time_t, long);
+VALUE rb_time_nano_new(time_t, long);
+VALUE rb_time_num_new(VALUE, VALUE);
+struct timeval rb_time_interval(VALUE num);
+struct timeval rb_time_timeval(VALUE time);
+struct timespec rb_time_timespec(VALUE time);
+
+VALUE rb_mod_name(VALUE);
+VALUE rb_class_path(VALUE);
+VALUE rb_class_path_cached(VALUE);
+void rb_set_class_path(VALUE, VALUE, const char*);
+void rb_set_class_path_string(VALUE, VALUE, VALUE);
+VALUE rb_path_to_class(VALUE);
+VALUE rb_path2class(const char*);
+void rb_name_class(VALUE, ID);
+VALUE rb_class_name(VALUE);
+void rb_autoload(VALUE, ID, const char*);
+VALUE rb_autoload_load(VALUE, ID);
+VALUE rb_autoload_p(VALUE, ID);
+VALUE rb_f_trace_var(int, VALUE*);
+VALUE rb_f_untrace_var(int, VALUE*);
+VALUE rb_f_global_variables(void);
+void rb_alias_variable(ID, ID);
+struct st_table* rb_generic_ivar_table(VALUE);
+void rb_copy_generic_ivar(VALUE,VALUE);
+void rb_free_generic_ivar(VALUE);
+VALUE rb_ivar_get(VALUE, ID);
+VALUE rb_ivar_set(VALUE, ID, VALUE);
+VALUE rb_ivar_defined(VALUE, ID);
+void rb_ivar_foreach(VALUE, int (*)(), st_data_t);
+st_index_t rb_ivar_count(VALUE);
+VALUE rb_attr_get(VALUE, ID);
+VALUE rb_obj_instance_variables(VALUE);
+VALUE rb_obj_remove_instance_variable(VALUE, VALUE);
+void *rb_mod_const_at(VALUE, void*);
+void *rb_mod_const_of(VALUE, void*);
+VALUE rb_const_list(void*);
+VALUE rb_mod_constants(int, VALUE *, VALUE);
+VALUE rb_mod_remove_const(VALUE, VALUE);
+int rb_const_defined(VALUE, ID);
+int rb_const_defined_at(VALUE, ID);
+int rb_const_defined_from(VALUE, ID);
+VALUE rb_const_get(VALUE, ID);
+VALUE rb_const_get_at(VALUE, ID);
+VALUE rb_const_get_from(VALUE, ID);
+void rb_const_set(VALUE, ID, VALUE);
+VALUE rb_const_remove(VALUE, ID);
+VALUE rb_mod_const_missing(VALUE,VALUE);
+VALUE rb_cvar_defined(VALUE, ID);
+void rb_cvar_set(VALUE, ID, VALUE);
+VALUE rb_cvar_get(VALUE, ID);
+void rb_cv_set(VALUE, const char*, VALUE);
+VALUE rb_cv_get(VALUE, const char*);
+void rb_define_class_variable(VALUE, const char*, VALUE);
+VALUE rb_mod_class_variables(int, VALUE*, VALUE);
+VALUE rb_mod_remove_cvar(VALUE, VALUE);
+
+ID rb_frame_callee(void);
+VALUE rb_str_succ(VALUE);
+VALUE rb_time_succ(VALUE);
+int rb_frame_method_id_and_class(ID *idp, VALUE *klassp);
+VALUE rb_make_backtrace(void);
+VALUE rb_make_exception(int, VALUE*);
+
+
+__attribute__ ((deprecated)) void rb_frame_pop(void);
+
+
+#pragma GCC visibility pop
+
+
+
+
+
+
+
+
+int ruby_native_thread_p(void);
+typedef unsigned long rb_event_flag_t;
+typedef void (*rb_event_hook_func_t)(rb_event_flag_t evflag, VALUE data, VALUE self, ID mid, VALUE klass);
+
+
+void rb_add_event_hook(rb_event_hook_func_t func, rb_event_flag_t events, VALUE data);
+int rb_remove_event_hook(rb_event_hook_func_t func);
+
+
+
+
+int rb_isalnum(int c);
+int rb_isalpha(int c);
+int rb_isblank(int c);
+int rb_iscntrl(int c);
+int rb_isdigit(int c);
+int rb_isgraph(int c);
+int rb_islower(int c);
+int rb_isprint(int c);
+int rb_ispunct(int c);
+int rb_isspace(int c);
+int rb_isupper(int c);
+int rb_isxdigit(int c);
+int rb_tolower(int c);
+int rb_toupper(int c);
+int st_locale_insensitive_strcasecmp(const char *s1, const char *s2);
+int st_locale_insensitive_strncasecmp(const char *s1, const char *s2, size_t n);
+
+
+
+unsigned long ruby_strtoul(const char *str, char **endptr, int base);
+
+
+
+
+int ruby_snprintf(char *str, size_t n, char const *fmt, ...) __attribute__((format(printf, 3, 4)));
+int ruby_vsnprintf(char *str, size_t n, char const *fmt, va_list ap);
+
+
+
+void ruby_sysinit(int *argc, char ***argv);
+void ruby_init(void);
+void* ruby_options(int argc, char** argv);
+int ruby_executable_node(void *n, int *status);
+int ruby_run_node(void *n);
+
+
+void ruby_show_version(void);
+void ruby_show_copyright(void);
+void ruby_init_stack(volatile VALUE*);
+
+
+
+int ruby_setup(void);
+int ruby_cleanup(volatile int);
+
+void ruby_finalize(void);
+__attribute__ ((noreturn)) void ruby_stop(int);
+
+void ruby_set_stack_size(size_t);
+int ruby_stack_check(void);
+size_t ruby_stack_length(VALUE**);
+
+int ruby_exec_node(void *n);
+
+void ruby_script(const char* name);
+void ruby_set_script_name(VALUE name);
+
+void ruby_prog_init(void);
+void ruby_set_argv(int, char**);
+void *ruby_process_options(int, char**);
+void ruby_init_loadpath(void);
+void ruby_incpush(const char*);
+void ruby_sig_finalize(void);
+
+
+
+#pragma GCC visibility pop
+
+
+
+
+
+
+
+
