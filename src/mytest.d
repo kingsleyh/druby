@@ -25,9 +25,9 @@
 //}
 module mytest;
 
-import ruby
+import ruby;
 
-alias VALUE(*func_type)();
+alias func_type = VALUE function();
 extern (C) VALUE DexterModule = 0;
 extern (C) VALUE method_test1();
 
