@@ -1,3 +1,5 @@
+module ruby;
+
 import core.stdc.stdarg;
 import core.stdc.config;
 
